@@ -16,8 +16,10 @@ Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed), numCardsPlayed_(0
 	}
 	
 	initDeck();
+	printCards();
 	initPlayerCards();
 	shuffle();
+	printCards();
 	currentPlayer_ = findFirstPlayer();
 		
 }
@@ -91,7 +93,7 @@ void Game::initPlayerCards() {
 		for (int cardIndex = 0; cardIndex < 13; cardIndex++) {
 			int currCard = currPlayer * 13 + cardIndex;
 			Card* currentCard = cards_[currPlayer];
-			players_[currPlayer]->addCard(*currentCard);
+			players_[currPlayer]->addCard(currentCard);
 		}
 	}
 }
@@ -111,4 +113,17 @@ void Game::nextPlayer() {
 	currentPlayer_++;
 	if (currentPlayer_ > 4)
 		currentPlayer_ = currentPlayer_ % 4;
+}
+void printCards(){
+
+
+
+}
+void Game::printCards() const{
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 12; ++j) {
+			cout << *cards_[i * 13 + j] << " ";
+		}
+		cout << *cards_[i * 13 + 12] << endl;
+	}
 }

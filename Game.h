@@ -24,6 +24,7 @@ public:
 	bool isGameOver() const;
 	bool isCurrentPlayerHuman() const;
 	int addAllPlayerPoints() const;
+	void printCards() const;
 	//int getCurrentPlayer() const;
 	//std::vector<Card*> getDeck() const;
 	//std::vector<Card*> getCardsOnTable(Suit suit) const;

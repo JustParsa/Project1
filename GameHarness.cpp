@@ -53,12 +53,7 @@ int main(int argc, char** argv) {
 	}
 	Game g = Game(humanPlayers, seed);
 	Command c;
-	while (!g.isGameOver()){
-
-
-
-	}
-
+	g.printCards();
 }
 
 /*

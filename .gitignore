@@ -1,0 +1,11 @@
+*.filters
+GameManager.vcxproj.filters
+*.vcxproj
+GameManager.vcxproj
+*.filters
+*.pdb
+Debug/Player.obj
+*.tlog
+*.log
+Debug/GameHarness.obj
+*.obj

@@ -30,9 +30,6 @@
     <ClInclude Include="Command.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="shuffle.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -54,9 +51,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shuffle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameHarness.cpp">
