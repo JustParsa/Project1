@@ -104,6 +104,7 @@ int Game::findFirstPlayer() {
 				return currPlayer;
 		}
 	}
+    return 0;
 }
 
 void Game::nextPlayer() {

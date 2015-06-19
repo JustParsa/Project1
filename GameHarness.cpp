@@ -2,7 +2,6 @@
 #include <deque>
 #include <cstdlib>
 #include "Command.h"
-#include "shuffle.h"
 #include "Player.h"
 #include "Game.h"
 
