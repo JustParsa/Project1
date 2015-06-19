@@ -2,7 +2,6 @@
 #include <deque>
 #include <cstdlib>
 #include "Command.h"
-#include "shuffle.h"
 #include "Player.h"
 #include "Game.h"
 
@@ -54,12 +53,7 @@ int main(int argc, char** argv) {
 	}
 	Game g = Game(humanPlayers, seed);
 	Command c;
-	while (!g.isGameOver()){
-
-
-
-	}
-
+	g.printCards();
 }
 
 /*
