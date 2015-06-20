@@ -9,22 +9,36 @@
 #define	PLAYER_H
 
 #include <vector>
-//#include <deque>
 #include "Card.h"
+#include "PlayedCards.h"
 
 class Player {
 public:
+	
+	class IllegalMoveException {									//Exception if the Collection is invalid. 
+	public:
+		IllegalMoveException(std::string);
+		~IllegalMoveException() {};
+		std::string msg();
+	private:
+		std::string msg_;
+	};
+	
 	Player(bool, int);
 	virtual ~Player();
 	void addCard(Card*);
 	void newRound();
 	void sumTotalPoints();
-	//std::vector<Card> getLegalPlays(Table& table) const;
+	std::vector<Card*> getLegalPlays(PlayedCards& playedCards);
 	std::vector<Card*> getHand() const;
 	std::vector<Card*> getDiscardedCards() const;
 	bool isPlayerHuman() const;
 	int getPoints() const;
 	int getTotalPoints() const;
+	void removeCard(Card* card);
+	void addPoints(Card* card);
+	void pushDiscardedDeck(Card* card);
+	bool hasCard(Card* card) const;
 	//int getIndex() const;
 	//Action performMove(Table& table, Action action);
 	void replaceHumanPlayWithComputerPlay();
@@ -32,10 +46,7 @@ public:
 	friend class HumanPlays;
 	friend class ComputerPlays;
 private:
-	void removeCard(Card* card);
-	void addPoints(Card* card);
-	void pushDiscardedDeck(Card* card);
-	bool hasCard(Card* card) const;
+
 	//bool isCardValid(Table& table, Card card) const;
 	std::vector<Card*> hand_; //a list of cards available
 	std::vector<Card*> discardedCards_; //a list of discarded cards
@@ -44,7 +55,6 @@ private:
 	int totalPoints_; //number of points obtained before current round
 	int playerNumber_;
 	//int index; //index of current player
-	//Plays* plays; //logic behind the human player to decide whether the given action is valid
 };
 
 #endif	/* PLAYER_H */

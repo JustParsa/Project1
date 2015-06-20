@@ -1,23 +1,48 @@
-﻿Build started 2015-06-19 6:42:31 PM.
-     1>Project "C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\GameManager\GameManager.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2015-06-20 2:56:13 AM.
+     1>Project "C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\GameManager\GameManager.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp GameHarness.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\GameManager.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Card.cpp Command.cpp ComputerPlayer.cpp Game.cpp GameHarness.cpp HumanPlayer.cpp Player.cpp
+         Player.cpp
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\player.cpp(28): warning C4018: '<' : signed/unsigned mismatch
+         HumanPlayer.cpp
          GameHarness.cpp
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(26): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(106): error C2065: 'proceedToNextPlayer' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(109): error C2065: 'proceedToNextPlayer' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(109): error C2065: 'game' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(109): error C2065: 'inputCommand' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(109): error C2228: left of '.card' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(109): error C3861: 'humanPlayValidation': identifier not found
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(112): error C2065: 'proceedToNextPlayer' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(112): error C2065: 'game' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(112): error C2065: 'inputCommand' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(112): error C2228: left of '.card' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(112): error C3861: 'humanDiscardValidation': identifier not found
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(115): error C2065: 'game' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(115): error C2228: left of '.humanRageQuit' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(116): error C2065: 'game' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(116): error C2228: left of '.getCurrentPlayer' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(117): error C2065: 'game' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(117): error C3861: 'startComputerAction': identifier not found
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(118): error C2065: 'proceedToNextPlayer' : undeclared identifier
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\gameharness.cpp(120): error C2065: 'printMessage' : undeclared identifier
          Game.cpp
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\game.cpp(175): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\game.cpp(183): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\game.cpp(190): error C2039: 'getLegalPlays' : is not a member of 'Player'
+                 c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\player.h(15) : see declaration of 'Player'
+         ComputerPlayer.cpp
+         Command.cpp
+         Card.cpp
          Generating Code...
-     1>c:\users\sherwin aminpour\documents\visual studio 2013\projects\gamemanager\gamemanager\game.cpp(109): warning C4715: 'Game::findFirstPlayer' : not all control paths return a value
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\Debug\GameManager.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\Debug\GameManager.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\Debug\GameManager.lib" /MACHINE:X86 Debug\Card.obj
-         Debug\Command.obj
-         Debug\ComputerPlayer.obj
-         Debug\Game.obj
-         Debug\GameHarness.obj
-         Debug\HumanPlayer.obj
-         Debug\Player.obj
-         Debug\stdafx.obj
-         GameManager.vcxproj -> C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\Debug\GameManager.exe
-     1>Done Building Project "C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\GameManager\GameManager.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\Sherwin Aminpour\documents\visual studio 2013\Projects\GameManager\GameManager\GameManager.vcxproj" (Rebuild target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:02.00
+Time Elapsed 00:00:03.69
