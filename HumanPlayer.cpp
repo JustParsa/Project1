@@ -5,7 +5,7 @@
 
 using namespace std;
 
-HumanPlayer::HumanPlayer() {};
+HumanPlayer::HumanPlayer(bool isPlayerHuman, int playerNumber) : Player(isPlayerHuman, playerNumber) {};
 
 HumanPlayer::~HumanPlayer() {}
 
@@ -28,7 +28,7 @@ void HumanPlayer::playCard(PlayedCards& playedCards, Player& player, Card* card)
 }
 
 void HumanPlayer::discardCard(PlayedCards& playedCards, Player& player, Card* card) {
-	vector<Card*> legalPlays = player.getLegalPlays(playedCards);
+	//vector<Card*> legalPlays = player.getLegalPlays(playedCards);
 	player.addPoints(card);
 	player.removeCard(card);
 	player.pushDiscardedDeck(card);

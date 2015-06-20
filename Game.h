@@ -30,7 +30,7 @@ public:
 	void shuffle();
 	bool numPointsGreaterThanEighty() const;
 	void nextPlayer();
-	//Action humanPlaysCard(Card card);
+	void playCard(Card *card, string);
 	//Action humanDiscardsCard(Card card);
 	//Action computerPerformsMove();
 	//void humanRageQuit();
@@ -43,6 +43,7 @@ public:
 	int getPlayerPoints(int);
 	int getPlayerTotalPoints(int);
 	int getCurrentPlayer() const;
+	Card* getPointerToCard(Card card);
 	//std::vector<Card*> getDeck() const;
 	//std::deque<Card*> getCardsOnTableOfSuit(Suit suit) const;
 	//std::vector<Card*> getCurrentPlayerHand() const;

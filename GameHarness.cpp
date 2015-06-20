@@ -86,7 +86,8 @@ int main(int argc, char** argv) {
 	printStartGamePlay(g.findFirstPlayer());
 	Command currentCommand;
 	cin >> currentCommand;
-	
+	bool proceedToNextPlayer = true;
+	bool printMessage = true;
 	while (currentCommand.type != QUIT){
 		if (g.isGameOver()) {
 
@@ -118,13 +119,7 @@ int main(int argc, char** argv) {
 				proceedToNextPlayer = false;
 				break;
 			case PLAY:
-				try{
-					humanPlayValidation(g, inputCommand.card);
-				}
-				catch (IllegalMoveException e){
-				
-				
-				}
+				g.playCard(&currentCommand.card)
 				break;
 			case DISCARD:
 				proceedToNextPlayer = humanDiscardValidation(g, inputCommand.card);

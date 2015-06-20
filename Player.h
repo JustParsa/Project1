@@ -32,12 +32,11 @@ public:
 	void addPoints(Card* card);
 	void pushDiscardedDeck(Card* card);
 	bool hasCard(Card* card) const;
-	//int getIndex() const;
 	//Action performMove(Table& table, Action action);
 	void replaceHumanPlayWithComputerPlay();
-
-	friend class HumanPlays;
-	friend class ComputerPlays;
+	virtual void performMove(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) = 0;
+	virtual void playCard(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) = 0;
+	virtual void discardCard(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) = 0;
 private:
 
 	//bool isCardValid(Table& table, Card card) const;
@@ -47,7 +46,6 @@ private:
 	int points_;
 	int totalPoints_;
 	int playerNumber_;
-	//int index;
 };
 
 #endif	/* PLAYER_H */

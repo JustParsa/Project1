@@ -65,3 +65,5 @@ vector<Card*> Player::getLegalPlays(PlayedCards& playedCards) {
 	}
 	return legalPlays;
 }
+
+

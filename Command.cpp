@@ -5,7 +5,7 @@ using namespace std;
 
 istream &operator>>(istream &in, Command &c){
 	c.type = BAD_COMMAND;
-
+	
 	string cmd;
 	in >> cmd;
 

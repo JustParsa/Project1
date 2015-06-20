@@ -3,6 +3,8 @@
 #include <random>
 #include "Game.h"
 #include "Player.h"
+#include "HumanPlayer.h"
+#include "ComputerPlayer.h"
 #include "Card.h"
 
 const int CARD_COUNT = 52;
@@ -16,10 +18,13 @@ using namespace std;
  to begin
  */
 
-Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed), numCardsPlayed_(0){
+Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed){
 
 	for (int x = 0; x < 4; x++) {
-		players_[x] = new Player(humanPlayers.at(x), x);
+		if (humanPlayers.at(x))
+			players_[x] = new HumanPlayer(humanPlayers.at(x), x);
+		//else
+			//players_[x] = new ComputerPlayer(humanPlayers.at(x), x);
 	}
 	
 	initDeck();
@@ -191,10 +196,11 @@ void Game::newRound(){
 	initPlayerCards();
 	shuffle();
 	currentPlayer_ = findFirstPlayer();
-
+}
 /*
  print cards delimited with spaces
  */
+
 void Game::printCards() const{
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 12; j++) {
@@ -230,8 +236,10 @@ void Game::printHumanGameplay() {
 
 	//Print current player's legal plays
 	cout << "Legal Plays:";
+
 	vector<Card*> legalPlays = players_[currentPlayer_]->getLegalPlays(playedCards);
-	for (vector<Card*>::const_iterator itr = legalPlays.begin(); itr < legalPlays.end(); ++itr) {
+
+	for (vector<Card*>::const_iterator itr = legalPlays.begin(); itr < legalPlays.end(); itr++) {
 		cout << " " << *itr;
 	}
 	cout << endl;
@@ -248,6 +256,11 @@ int Game::getPlayerPoints(int player){
 
 }
 
+void Game::playCard(Card* card, string typeOfAction){
+
+	players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, );
+
+}
 
 /*
  return the total points of a player
@@ -255,5 +268,17 @@ int Game::getPlayerPoints(int player){
 int Game::getPlayerTotalPoints(int player){
 
 	return players_[player]->getTotalPoints();
+
+}
+
+Card* Game::getPointerToCard(Card card){
+
+	for (int x = 0; x < 52; x++){
+
+		if (cards_[x]->getRank == card.getRank && cards_[x]->getSuit == card.getSuit){
+			return cards_[x];
+		}
+
+	}
 
 }

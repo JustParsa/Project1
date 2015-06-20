@@ -7,7 +7,7 @@
 
 class HumanPlayer : public Player {
 public:
-	HumanPlayer();
+	HumanPlayer(bool isPlayerHuman, int playerNumber);
 	virtual ~HumanPlayer();
 	virtual void HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction);
 	virtual void playCard(PlayedCards&, Player&, Card* card);
