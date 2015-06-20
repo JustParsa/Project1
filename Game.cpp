@@ -16,12 +16,41 @@ Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed), numCardsPlayed_(0
 	}
 	
 	initDeck();
-	printCards();
 	initPlayerCards();
 	shuffle();
-	printCards();
 	currentPlayer_ = findFirstPlayer();
 		
+}
+
+const char* getSuit(enum Suit s)
+{
+	switch (s)
+	{
+	case CLUB: return "Clubs";
+	case DIAMOND: return "Diamonds";
+	case HEART: return "Hearts";
+	case SPADE: return "Spades";
+	}
+}
+
+const char* getRank(enum Rank s)
+{
+	switch (s)
+	{
+	case ACE: return "Ace";
+	case TWO: return "Two";
+	case THREE: return "Three";
+	case FOUR: return "Four";
+	case FIVE: return "Five";
+	case SIX: return "Six";
+	case SEVEN: return "Seven";
+	case EIGHT: return "Eight";
+	case NINE: return "Nine";
+	case TEN: return "Ten";
+	case JACK: return "Jack";
+	case QUEEN: return "Queen";
+	case KING: return "King";
+	}
 }
 
 void Game::shuffle(){
@@ -36,6 +65,10 @@ void Game::shuffle(){
 		cards_[n] = cards_[k];
 		cards_[k] = c;
 	}
+}
+
+vector <Card*> Game::getDiscardedCards(int player) const{ 
+	return players_[player]->getDiscardedCards();
 }
 
 void Game::initDeck() {
@@ -126,4 +159,45 @@ void Game::printCards() const{
 		}
 		cout << *cards_[i * 13 + 12] << endl;
 	}
+}
+
+void Game::printHumanGameplay() {
+	cout << "Cards on the table:" << endl;
+
+	for (int suit = CLUB; suit < SUIT_COUNT; suit++) {
+		cout << getSuit((Suit)suit) << ":";
+		deque<Card*> cards = playedCards.getCardsOnTableOfSuit((Suit)suit);
+		for (int x = 0; x < cards.size(); x++) {
+			cout << " " << getRank(cards.at(x)->getRank());
+		}
+		cout << endl;
+	}
+
+	cout << "Your hand:";
+	vector<Card*> hand = players_[currentPlayer_]->getHand();
+	for (int x = 0; x < hand.size(); x++) {
+		cout << " " << hand.at(x);
+	}
+	cout << endl;
+
+	//Print current player's legal plays
+	cout << "Legal Plays:";
+	vector<Card*> legalPlays = players_[currentPlayer_]->getLegalPlays(playedCards);
+	for (vector<Card*>::const_iterator itr = legalPlays.begin(); itr < legalPlays.end(); ++itr) {
+		cout << " " << *itr;
+	}
+	cout << endl;
+
+}
+
+int Game::getPlayerPoints(int player){
+
+	return players_[player]->getPoints();
+
+}
+
+int Game::getPlayerTotalPoints(int player){
+
+	return players_[player]->getTotalPoints();
+
 }

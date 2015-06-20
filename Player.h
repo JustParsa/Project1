@@ -9,8 +9,8 @@
 #define	PLAYER_H
 
 #include <vector>
-//#include <deque>
 #include "Card.h"
+#include "PlayedCards.h"
 
 class Player {
 public:
@@ -19,7 +19,7 @@ public:
 	void addCard(Card*);
 	void newRound();
 	void sumTotalPoints();
-	//std::vector<Card> getLegalPlays(Table& table) const;
+	std::vector<Card*> getLegalPlays(PlayedCards& playedCards);
 	std::vector<Card*> getHand() const;
 	std::vector<Card*> getDiscardedCards() const;
 	bool isPlayerHuman() const;
@@ -44,7 +44,6 @@ private:
 	int totalPoints_; //number of points obtained before current round
 	int playerNumber_;
 	//int index; //index of current player
-	//Plays* plays; //logic behind the human player to decide whether the given action is valid
 };
 
 #endif	/* PLAYER_H */
