@@ -8,10 +8,15 @@
 using namespace std;
 
 
-
-inline bool isInteger(const std::string & s)
+/*
+ this may be unnecessary if
+ bad input is never given
+ */
+bool isInteger(const std::string & s)
 {
-	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+    if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))){
+        return false;
+    }
 
 	char * p;
 	strtol(s.c_str(), &p, 10);
@@ -19,6 +24,9 @@ inline bool isInteger(const std::string & s)
 	return (*p == 0);
 }
 
+/*
+ prints the score for all players
+ */
 void printScore(Game& g) {
 	for (int x = 1; x <= 4; x++) {
 		cout << "Player " << x << "'s discards:";

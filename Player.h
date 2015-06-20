@@ -1,10 +1,3 @@
-/*
-* File:   Player.h
-* Author: User
-*
-* Created on June 8, 2012, 10:16 AM
-*/
-
 #ifndef PLAYER_H
 #define	PLAYER_H
 
@@ -37,13 +30,13 @@ private:
 	void pushDiscardedDeck(Card* card);
 	bool hasCard(Card* card) const;
 	//bool isCardValid(Table& table, Card card) const;
-	std::vector<Card*> hand_; //a list of cards available
-	std::vector<Card*> discardedCards_; //a list of discarded cards
-	bool isPlayerHuman_; //true if the player is human. False otherwise.
-	int points_; //number of points obtained from current round
-	int totalPoints_; //number of points obtained before current round
+	std::vector<Card*> hand_;
+	std::vector<Card*> discardedCards_;
+	bool isPlayerHuman_;
+	int points_;
+	int totalPoints_;
 	int playerNumber_;
-	//int index; //index of current player
+	//int index;
 };
 
 #endif	/* PLAYER_H */

@@ -4,6 +4,10 @@
 
 using namespace std;
 
+/*
+ Player constructor initializing
+ appropriate values
+ */
 Player::Player(bool isPlayerHuman, int playerNumber) : isPlayerHuman_(isPlayerHuman),playerNumber_(playerNumber), points_(0), totalPoints_(0) {}
 Player::~Player() {};
 bool Player::isPlayerHuman() const {return isPlayerHuman_;}
@@ -14,31 +18,34 @@ int Player::getTotalPoints() const { return totalPoints_; }
 void Player::pushDiscardedDeck(Card* card) {discardedCards_.push_back(card);}
 void Player::sumTotalPoints() {
 	totalPoints_ += points_;
+    // reset points of the current to 0 once it's added to total
 	points_ = 0;
 }
+
 void Player::newRound() {
 	hand_.clear();
 	discardedCards_.clear();
 }
+
 void Player::addPoints(Card* card) {
 	points_ += card->getRank() + 1;
 }
+
 bool Player::hasCard(Card* card) const {
 	for (int x = 0; x < hand_.size(); x++) {
-		if (hand_.at(x) == card) {
-			return true;
-		}
-		else{
-			return false;
-		}
-
+        return (hand_.at(x) == card) ? true : false;
 	}
 	return false;
 }
+
 void Player::addCard(Card* card) {
 	hand_.push_back(card);
 }
 
+/*
+ Add all possible valid plays to a vector
+ and return it
+ */
 vector<Card*> Player::getLegalPlays(PlayedCards& playedCards) {
 	vector<Card*> legalPlays;
 	for (int x = 0; x < hand_.size(); x++) {
