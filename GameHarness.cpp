@@ -7,6 +7,8 @@
 
 using namespace std;
 
+
+
 inline bool isInteger(const std::string & s)
 {
 	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
@@ -15,6 +17,19 @@ inline bool isInteger(const std::string & s)
 	strtol(s.c_str(), &p, 10);
 
 	return (*p == 0);
+}
+
+void printScore(Game& g) {
+	for (int x = 1; x <= 4; x++) {
+		cout << "Player " << x << "'s discards:";
+		vector<Card*> discardedCards = g.getDiscardedCards(x);
+		for (int y = 0; y < discardedCards.size(); y++) {
+			cout << " " << discardedCards.at(y);
+		}
+		cout << endl;
+
+		cout << "Player " << x << "'s score: " << g.getPlayerTotalPoints(x - 1) << " + " << g.getPlayerPoints(x - 1) << " = " << g.getPlayerTotalPoints(x - 1) + g.getPlayerPoints(x) << endl;
+	}
 }
 
 void printStartGamePlay(int firstPlayer) {
@@ -52,37 +67,81 @@ int main(int argc, char** argv) {
 		}
 	}
 	Game g = Game(humanPlayers, seed);
-	Command c;
-	g.printCards();
+	Command currentCommand;
+	printStartGamePlay(g.findFirstPlayer());
+	do{
+		if (g.isGameOver()) {
+
+			printScore(g);
+			int winner = g.addAllPlayerPoints();
+			if (winner >= 0) {
+				//there is a winner
+				cout << "Player " << winner + 1 << " wins!" << endl;
+				return 0;
+			}
+			//there are no winners
+			//g.restart();
+			printStartGamePlay(g.findFirstPlayer());
+		}
+	} while (true);
 }
 
 /*
-void printHumanPlayerOutput(Player *player) {
-	//Print cards on table
-	cout << "Cards on the table:" << endl;
-	for (int suit = 0; suit < SUIT_COUNT; ++suit) {
-		cout << suitNames[suit] << ":";
-		deque<Card> cards = game.getCardsOnTable((Suit)suit);
-		for (deque<Card>::const_iterator itr = cards.begin(); itr < cards.end(); ++itr) {
-			cout << " " << rankNames[itr->getRank()];
+int main(int argc, char** argv) {
+	do {
+		if (g.isGameOver()) {
+
+			printScore(game);
+			int winner = game.addPointsAndGetWinner();
+			if (winner >= 0) {
+				//there is a winner
+				cout << "Player " << winner + 1 << " wins!" << endl;
+				return 0;
+			}
+			//there are no winners
+			game.restart();
+			printNewGameMessage(game);
 		}
-		cout << endl;
-	}
+		else {
+			if (game.isCurrentPlayerHuman()) {
+				//get input for human player
+				if (printMessage) {
+					printHumanPlayerMessage(game);
+				}
+				cout << ">";
+				cin >> inputCommand;
+				switch (inputCommand.type) {
+				case QUIT:
+					return 0;
+				case DECK:
+					printDeck(game);
+					proceedToNextPlayer = false;
+					break;
+				case PLAY:
+					proceedToNextPlayer = humanPlayValidation(game, inputCommand.card);
+					break;
+				case DISCARD:
+					proceedToNextPlayer = humanDiscardValidation(game, inputCommand.card);
+					break;
+				case RAGEQUIT:
+					game.humanRageQuit();
+					cout << "Player " << game.getCurrentPlayer() + 1 << " ragequits. A computer will now take over." << endl;
+					startComputerAction(game);
+					proceedToNextPlayer = true;
+				}
+				printMessage = false;
+			}
+			else {
+				//computer player performs move
+				startComputerAction(game);
+			}
+			if (proceedToNextPlayer) {
+				game.next();
+				printMessage = true;
+			}
+		}
+	} while (inputCommand.type != QUIT);
 
-	//Print current player's hand
-	cout << "Your hand:";
-	deque<Card> hand = game.getCurrentPlayerHand();
-	for (deque<Card>::const_iterator itr = hand.begin(); itr < hand.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
-
-	//Print current player's legal plays
-	cout << "Legal Plays:";
-	deque<Card> legalPlays = game.getCurrentPlayerLegalPlays();
-	for (deque<Card>::const_iterator itr = legalPlays.begin(); itr < legalPlays.end(); ++itr) {
-		cout << " " << *itr;
-	}
-	cout << endl;
+	return 0;
 }
 */

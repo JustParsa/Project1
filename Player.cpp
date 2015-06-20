@@ -1,5 +1,4 @@
 
-#include <deque>
 #include "Player.h"
 #include "Card.h"
 
@@ -38,5 +37,15 @@ bool Player::hasCard(Card* card) const {
 }
 void Player::addCard(Card* card) {
 	hand_.push_back(card);
+}
+
+vector<Card*> Player::getLegalPlays(PlayedCards& playedCards) {
+	vector<Card*> legalPlays;
+	for (int x = 0; x < hand_.size(); x++) {
+		if (playedCards.isValidPlay(hand_.at(x))) {
+			legalPlays.push_back(hand_.at(x));
+		}
+	}
+	return legalPlays;
 }
 
