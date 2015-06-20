@@ -9,6 +9,13 @@ const int CARD_COUNT = 52;
 
 using namespace std;
 
+
+/*
+ Constructor for the game class;
+ Does all the setup for the game
+ to begin
+ */
+
 Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed), numCardsPlayed_(0){
 
 	for (int x = 0; x < 4; x++) {
@@ -22,6 +29,7 @@ Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed), numCardsPlayed_(0
 		
 }
 
+// return appropriate string of suit based on suit object
 const char* getSuit(enum Suit s)
 {
 	switch (s)
@@ -30,9 +38,11 @@ const char* getSuit(enum Suit s)
 	case DIAMOND: return "Diamonds";
 	case HEART: return "Hearts";
 	case SPADE: return "Spades";
+    default: return "";
 	}
 }
 
+// return appropriate string of rank based Rank object
 const char* getRank(enum Rank s)
 {
 	switch (s)
@@ -50,6 +60,7 @@ const char* getRank(enum Rank s)
 	case JACK: return "Jack";
 	case QUEEN: return "Queen";
 	case KING: return "King";
+    default: return "";
 	}
 }
 
@@ -71,6 +82,11 @@ vector <Card*> Game::getDiscardedCards(int player) const{
 	return players_[player]->getDiscardedCards();
 }
 
+/*
+ initialize deck: for every suit create all ranks
+ and populate the cards_ array with pointers
+ to objects representing every card in the deck
+ */
 void Game::initDeck() {
 	int i = 0;
 	for (int suit = CLUB; suit < SUIT_COUNT; suit++) {
@@ -85,6 +101,10 @@ bool Game::isGameOver() const{
 	return playedCards.getCardsOnTableOfSuit(0).size() + playedCards.getCardsOnTableOfSuit(1).size() + playedCards.getCardsOnTableOfSuit(2).size() + playedCards.getCardsOnTableOfSuit(3).size();
 }
 
+/*
+ Calculate the points of every single player,
+ including the winner and returns it, if one exists
+ */
 int Game::addAllPlayerPoints() const{
 
 	for (int x = 0; x < 4; x++){
@@ -98,10 +118,13 @@ int Game::addAllPlayerPoints() const{
 		if (players_[x]->getTotalPoints() >= 80)
 			greaterThanEightyPoints = true;
 
-	if (greaterThanEightyPoints)
-		for (int x = 1; x < 4; x++)
-			if (players_[x]->getTotalPoints() < winner)
+    if (greaterThanEightyPoints) {
+        for (int x = 1; x < 4; x++) {
+            if (players_[x]->getTotalPoints() < winner) {
 				winner = players_[x]->getTotalPoints();
+            }
+        }
+    }
 
 	greaterThanEightyPoints = (players_[0]->getTotalPoints() >= 80);
 
@@ -110,6 +133,11 @@ int Game::addAllPlayerPoints() const{
 	return -1;
 }
 
+/*
+ add points of current with 
+ the total number of points and 
+ check if it exceeds 80
+ */
 bool Game::numPointsGreaterThanEighty() const{
 
 	for (int x = 0; x < 4; x++)
@@ -119,9 +147,10 @@ bool Game::numPointsGreaterThanEighty() const{
 	return false;
 }
 
-
+/*
+ Initialize cards for all 4 players
+ */
 void Game::initPlayerCards() {
-	//distribute cards
 	for (int currPlayer = 0; currPlayer < 4; currPlayer++) {
 		for (int cardIndex = 0; cardIndex < 13; cardIndex++) {
 			int currCard = currPlayer * 13 + cardIndex;
@@ -131,8 +160,11 @@ void Game::initPlayerCards() {
 	}
 }
 
+/*
+ Search for player with seven of spades
+ and set them to the first player
+ */
 int Game::findFirstPlayer() {
-	//distribute cards
 	for (int currPlayer = 0; currPlayer < 4; currPlayer++) {
 		for (int cardIndex = 0; cardIndex < 13; cardIndex++) {
 			if (cards_[currPlayer]->getRank() == SEVEN && cards_[currPlayer]->getSuit() == SPADE)
@@ -141,11 +173,15 @@ int Game::findFirstPlayer() {
 	}
 }
 
+/*
+ Iterate to next player
+ */
 void Game::nextPlayer() {
 	currentPlayer_++;
 	if (currentPlayer_ > 4)
 		currentPlayer_ = currentPlayer_ % 4;
 }
+
 void Game::newRound(){
 
 	for (int i = 0; i < 4; ++i) {
@@ -156,7 +192,9 @@ void Game::newRound(){
 	shuffle();
 	currentPlayer_ = findFirstPlayer();
 
-}
+/*
+ print cards delimited with spaces
+ */
 void Game::printCards() const{
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 12; j++) {
@@ -166,6 +204,11 @@ void Game::printCards() const{
 	}
 }
 
+/*
+ The following function is responsible
+ for informing the human player on the game
+ and prompting for valid moves
+ */
 void Game::printHumanGameplay() {
 	cout << "Cards on the table:" << endl;
 
@@ -195,12 +238,20 @@ void Game::printHumanGameplay() {
 
 }
 
+
+/*
+ return points of the player for the current round
+ */
 int Game::getPlayerPoints(int player){
 
 	return players_[player]->getPoints();
 
 }
 
+
+/*
+ return the total points of a player
+ */
 int Game::getPlayerTotalPoints(int player){
 
 	return players_[player]->getTotalPoints();

@@ -1,3 +1,5 @@
+
+/*
 #include "ComputerPlayer.h"
 #include "Player.h"
 #include <deque>
@@ -40,3 +42,4 @@ Action ComputerPlayer::discardCard(Table& table, Action action, Player& player) 
 	player.addDiscardedCard(playCard);
 	return Action(DISCARD_ACTION, playCard);
 }
+*/

@@ -53,6 +53,7 @@ void PlayedCards::pushCard(Card* card) {
 deque<Card*> PlayedCards::getCardsOnTableOfSuit(int suit) const {
 	return playedCards_[suit];
 }
+
 void PlayedCards::newRound(){
 	for (int x = 0; x < 4; x++)
 		playedCards_[x].clear();

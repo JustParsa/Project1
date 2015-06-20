@@ -1,3 +1,4 @@
+/*
 #ifndef COMPUTERPLAYER_H
 #define	COMPUTERPLAYER_H
 
@@ -18,5 +19,4 @@ protected:
 };
 
 
-#endif	/* COMPUTERPLAYER_H */
-
+#endif	*//* COMPUTERPLAYER_H */

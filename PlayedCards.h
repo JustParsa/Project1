@@ -13,6 +13,7 @@ public:
 	void pushCard(Card* card);
 	bool isEmpty() const;
 	void newRound();
+
 	std::deque<Card*> getCardsOnTableOfSuit(int suit) const;
 private:
 	std::deque<Card*> playedCards_[4];
