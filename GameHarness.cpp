@@ -1,51 +1,20 @@
 #include <iostream>
 #include <deque>
 #include <cstdlib>
+#include <string>
 #include "Command.h"
 #include "Player.h"
 #include "Game.h"
-#include "IllegalMoveException.h"
 using namespace std;
-
-
-
-/*
- this may be unnecessary if
- bad input is never given
- */
-bool isInteger(const std::string & s)
-{
-    if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))){
-        return false;
-    }
-
-	char * p;
-	strtol(s.c_str(), &p, 10);
-
-	return (*p == 0);
-}
-
 
 /*
  prints the score for all players
  */
-void printScore(Game& g) {
-	for (int x = 1; x <= 4; x++) {
-		cout << "Player " << x << "'s discards:";
-		vector<Card*> discardedCards = g.getDiscardedCards(x);
-		for (int y = 0; y < discardedCards.size(); y++) {
-			cout << " " << discardedCards.at(y);
-		}
-		cout << endl;
-
-		cout << "Player " << x << "'s score: " << g.getPlayerTotalPoints(x - 1) << " + " << g.getPlayerPoints(x - 1) << " = " << g.getPlayerTotalPoints(x - 1) + g.getPlayerPoints(x) << endl;
-	}
-}
 
 void printAction(int index, string actionPerformed, Card* c) {
 	
-	
-	//cout << "Player " << index + 1 << " " << actionPerformed << ": " <<  c* << "." << endl;
+	index++;
+	cout << "Player " << index << " "<< actionPerformed << ": " <<  *c << "." << endl;
 }
 
 void printStartGamePlay(int firstPlayer) {
@@ -57,7 +26,7 @@ int main(int argc, char** argv) {
 	if (argc >= 2) {
 		string stringSeed = string(argv[1]);
 		int seed;
-		if (isInteger(stringSeed)) {
+		if (stringSeed.size() != 0) {
 			seed = atoi(stringSeed.c_str());
 		}
 		else {
@@ -74,7 +43,7 @@ int main(int argc, char** argv) {
 		if (input == 'h'){
 			humanPlayers.push_back(true);
 		}
-		else if (input == 'h'){
+		else if (input == 'c'){
 			humanPlayers.push_back(false);
 		}
 		else{
@@ -82,35 +51,37 @@ int main(int argc, char** argv) {
 			return 0;
 		}
 	}
+
 	Game g = Game(humanPlayers, seed);
-	printStartGamePlay(g.findFirstPlayer());
+	printStartGamePlay(g.findFirstPlayer() + 1);
 	Command currentCommand;
-	cin >> currentCommand;
 	bool proceedToNextPlayer = true;
 	bool printMessage = true;
-	while (currentCommand.type != QUIT){
+	do{
 		if (g.isGameOver()) {
 
-			printScore(g);
+			g.printScore();
 			int winner = g.addAllPlayerPoints();
 			if (winner >= 0) {
-				cout << "Player " << winner<< " wins!" << endl;
+				cout << "Player " << winner << " wins!" << endl;
 				return 0;
 			}
 			g.newRound();
-			printStartGamePlay(g.findFirstPlayer());
+			printStartGamePlay(g.findFirstPlayer() + 1);
 		}
+
 		if (g.isCurrentPlayerHuman()) {
 			g.printHumanGameplay();
-			/*
+
 			if (printMessage) {
-				printHumanPlayerMessage(game);
+				g.printHumanGameplay();
 			}
-			*/
+
 			cout << ">";
 			cin >> currentCommand;
 			bool proceedToNextPlayer;
 			bool printMessage;
+			Card* pointerToCard;
 			switch (currentCommand.type) {
 			case QUIT:
 				return 0;
@@ -119,81 +90,21 @@ int main(int argc, char** argv) {
 				proceedToNextPlayer = false;
 				break;
 			case PLAY:
-				g.playCard(&currentCommand.card)
+				pointerToCard = g.getPointerToCard(currentCommand.card);
+				g.playCard(pointerToCard, "play");
 				break;
 			case DISCARD:
-				proceedToNextPlayer = humanDiscardValidation(g, inputCommand.card);
+				pointerToCard = g.getPointerToCard(currentCommand.card);
+				g.discardCard(pointerToCard, "play");
 				break;
+				/*
 			case RAGEQUIT:
-				game.humanRageQuit();
-				cout << "Player " << game.getCurrentPlayer() + 1 << " ragequits. A computer will now take over." << endl;
-				startComputerAction(game);
-				proceedToNextPlayer = true;
+			cout << "Player " << g.getCurrentPlayer() + 1 << " ragequits. A computer will now take over." << endl;
+			proceedToNextPlayer = true;
+			*/
 			}
-			printMessage = false;
-		}
-
-
-
-
-	}
-}
-
-/*
-int main(int argc, char** argv) {
-	do {
-		if (g.isGameOver()) {
-
-			printScore(game);
-			int winner = game.addPointsAndGetWinner();
-			if (winner >= 0) {
-				//there is a winner
-				cout << "Player " << winner + 1 << " wins!" << endl;
-				return 0;
-			}
-			//there are no winners
-			game.restart();
-			printNewGameMessage(game);
-		}
-		else {
-			if (game.isCurrentPlayerHuman()) {
-				//get input for human player
-				if (printMessage) {
-					printHumanPlayerMessage(game);
-				}
-				cout << ">";
-				cin >> inputCommand;
-				switch (inputCommand.type) {
-				case QUIT:
-					return 0;
-				case DECK:
-					printDeck(game);
-					proceedToNextPlayer = false;
-					break;
-				case PLAY:
-					proceedToNextPlayer = humanPlayValidation(game, inputCommand.card);
-					break;
-				case DISCARD:
-					proceedToNextPlayer = humanDiscardValidation(game, inputCommand.card);
-					break;
-				case RAGEQUIT:
-					game.humanRageQuit();
-					cout << "Player " << game.getCurrentPlayer() + 1 << " ragequits. A computer will now take over." << endl;
-					startComputerAction(game);
-					proceedToNextPlayer = true;
-				}
+			
 				printMessage = false;
-			}
-			else {
-				//computer player performs move
-				startComputerAction(game);
-			}
-			if (proceedToNextPlayer) {
-				game.next();
-				printMessage = true;
-			}
 		}
-	} while (inputCommand.type != QUIT);
-	return 0;
+	} while (currentCommand.type != QUIT);
 }
-*/

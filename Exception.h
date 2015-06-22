@@ -6,7 +6,10 @@
 
 class Exception {
 public:
-
+	class DiscardException{
+	public:
+		DiscardException();
+	};
 	std::string getMessage() const;
 protected:
 

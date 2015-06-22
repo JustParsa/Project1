@@ -45,8 +45,8 @@
     <ClInclude Include="PlayedCards.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="IllegalMoveException.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Exception.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,7 +77,7 @@
     <ClCompile Include="PlayedCards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IllegalMoveException.cpp">
+    <ClCompile Include="Exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

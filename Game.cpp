@@ -28,8 +28,8 @@ Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed){
 	}
 	
 	initDeck();
-	initPlayerCards();
 	shuffle();
+	initPlayerCards();
 	currentPlayer_ = findFirstPlayer();
 		
 }
@@ -134,7 +134,7 @@ int Game::addAllPlayerPoints() const{
 	greaterThanEightyPoints = (players_[0]->getTotalPoints() >= 80);
 
 	if (greaterThanEightyPoints)
-		return winner + 1;
+		return winner;
 	return -1;
 }
 
@@ -173,6 +173,7 @@ int Game::findFirstPlayer() {
 	for (int currPlayer = 0; currPlayer < 4; currPlayer++) {
 		for (int cardIndex = 0; cardIndex < 13; cardIndex++) {
 			if (cards_[currPlayer]->getRank() == SEVEN && cards_[currPlayer]->getSuit() == SPADE)
+				currentPlayer_ = currPlayer;
 				return currPlayer;
 		}
 	}
@@ -183,8 +184,8 @@ int Game::findFirstPlayer() {
  */
 void Game::nextPlayer() {
 	currentPlayer_++;
-	if (currentPlayer_ > 4)
-		currentPlayer_ = currentPlayer_ % 4;
+	if (currentPlayer_ > 3)
+		currentPlayer_ = currentPlayer_ % 3;
 }
 
 void Game::newRound(){
@@ -230,7 +231,7 @@ void Game::printHumanGameplay() {
 	cout << "Your hand:";
 	vector<Card*> hand = players_[currentPlayer_]->getHand();
 	for (int x = 0; x < hand.size(); x++) {
-		cout << " " << hand.at(x);
+		cout << " " << *hand.at(x);
 	}
 	cout << endl;
 
@@ -258,7 +259,13 @@ int Game::getPlayerPoints(int player){
 
 void Game::playCard(Card* card, string typeOfAction){
 
-	players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, );
+	players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
+
+}
+
+void Game::discardCard(Card* card, string typeOfAction){
+
+	players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
 
 }
 
@@ -275,10 +282,39 @@ Card* Game::getPointerToCard(Card card){
 
 	for (int x = 0; x < 52; x++){
 
-		if (cards_[x]->getRank == card.getRank && cards_[x]->getSuit == card.getSuit){
+		if (cards_[x]->getRank() == card.getRank() && cards_[x]->getSuit() == card.getSuit()){
 			return cards_[x];
 		}
 
 	}
 
 }
+
+/*
+prints the score for all players
+*/
+
+void Game::printScore() {
+	for (int x = 1; x <= 4; x++) {
+		cout << "Player " << x << "'s discards:";
+		vector<Card*> discardedCards = getDiscardedCards(x);
+		for (int y = 0; y < discardedCards.size(); y++) {
+			cout << " " << discardedCards.at(y);
+		}
+		cout << endl;
+
+		cout << "Player " << x << "'s score: " << getPlayerTotalPoints(x - 1) << " + " << getPlayerPoints(x - 1) << " = " << getPlayerTotalPoints(x - 1) + getPlayerPoints(x) << endl;
+	}
+}
+
+bool Game::isCurrentPlayerHuman() const{
+
+	return players_[currentPlayer_]->isPlayerHuman();
+
+};
+
+int Game::getCurrentPlayer() const{
+
+	return currentPlayer_;
+
+};

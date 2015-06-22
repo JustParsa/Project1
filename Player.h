@@ -2,6 +2,8 @@
 #define	PLAYER_H
 
 #include <vector>
+#include <iostream>
+#include <string>
 #include "Card.h"
 #include "PlayedCards.h"
 
@@ -23,7 +25,7 @@ public:
 	void newRound();
 	void sumTotalPoints();
 	std::vector<Card*> getLegalPlays(PlayedCards& playedCards);
-	std::vector<Card*> getHand() const;
+	std::vector<Card*> getHand();
 	std::vector<Card*> getDiscardedCards() const;
 	bool isPlayerHuman() const;
 	int getPoints() const;
@@ -34,9 +36,7 @@ public:
 	bool hasCard(Card* card) const;
 	//Action performMove(Table& table, Action action);
 	void replaceHumanPlayWithComputerPlay();
-	virtual void performMove(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) = 0;
-	virtual void playCard(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) = 0;
-	virtual void discardCard(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) = 0;
+	virtual void performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction) = 0;
 private:
 
 	//bool isCardValid(Table& table, Card card) const;

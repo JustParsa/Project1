@@ -82,9 +82,9 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ComputerPlayer.h" />
+    <ClInclude Include="Exception.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HumanPlayer.h" />
-    <ClInclude Include="IllegalMoveException.h" />
     <ClInclude Include="PlayedCards.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
@@ -94,10 +94,10 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="ComputerPlayer.cpp" />
+    <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameHarness.cpp" />
     <ClCompile Include="HumanPlayer.cpp" />
-    <ClCompile Include="IllegalMoveException.cpp" />
     <ClCompile Include="PlayedCards.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp">

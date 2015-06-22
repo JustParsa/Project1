@@ -11,7 +11,9 @@ using namespace std;
 Player::Player(bool isPlayerHuman, int playerNumber) : isPlayerHuman_(isPlayerHuman),playerNumber_(playerNumber), points_(0), totalPoints_(0) {}
 Player::~Player() {};
 bool Player::isPlayerHuman() const {return isPlayerHuman_;}
-vector<Card*> Player::getHand() const {return hand_;}
+vector<Card*> Player::getHand() {
+	return hand_;
+}
 vector<Card*> Player::getDiscardedCards() const {return discardedCards_;}
 int Player::getPoints() const {return points_;}
 int Player::getTotalPoints() const { return totalPoints_; }
@@ -56,6 +58,8 @@ void Player::removeCard(Card* card) {
  Add all possible valid plays to a vector
  and return it
  */
+
+
 vector<Card*> Player::getLegalPlays(PlayedCards& playedCards) {
 	vector<Card*> legalPlays;
 	for (int x = 0; x < hand_.size(); x++) {

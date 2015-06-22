@@ -1,10 +1,3 @@
-/*
-* File:   Exception.cpp
-* Author: Nigel
-*
-* Created on June 10, 2012, 11:16 AM
-*/
-
 #include <iostream>
 #include "Exception.h"
 
