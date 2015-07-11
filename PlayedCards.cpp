@@ -22,7 +22,7 @@ bool PlayedCards::isValidPlay(Card* card) const {
 		}
 		return true;
 	}
-	if (playedCards_[card->getRank()].size() == 0)
+	if (playedCards_[card->getSuit()].size() == 0)
 		return false;
 	if (card->getRank() != ACE && playedCards_[card->getSuit()].front()->getRank() - 1 == card->getRank())
 		return true;

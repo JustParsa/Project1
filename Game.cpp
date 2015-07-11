@@ -159,7 +159,7 @@ void Game::initPlayerCards() {
 	for (int currPlayer = 0; currPlayer < 4; currPlayer++) {
 		for (int cardIndex = 0; cardIndex < 13; cardIndex++) {
 			int currCard = currPlayer * 13 + cardIndex;
-			Card* currentCard = cards_[currPlayer];
+			Card* currentCard = cards_[currCard];
 			players_[currPlayer]->addCard(currentCard);
 		}
 	}

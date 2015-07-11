@@ -21,21 +21,7 @@ void printStartGamePlay(int firstPlayer) {
 	cout << "A new round begins. It's player " << firstPlayer << "'s turn to play." << endl;
 }
 
-int main(int argc, char** argv) {
-	int seed = 0;
-	if (argc >= 2) {
-		string stringSeed = string(argv[1]);
-		int seed;
-		if (stringSeed.size() != 0) {
-			seed = atoi(stringSeed.c_str());
-		}
-		else {
-			cerr << "Invalid string argument." << endl;
-			seed = 0;
-		}
-	}
-
-	vector <bool> humanPlayers;
+void isPlayersHuman(vector <bool> &humanPlayers) {
 	for (int x = 1; x <= 4; x++){
 		char input;
 		cout << "Is player " << x << " a human(h) or a computer(c)?" << endl << ">";
@@ -48,10 +34,19 @@ int main(int argc, char** argv) {
 		}
 		else{
 			cerr << "Invalid user type." << endl;
-			return 0;
 		}
 	}
+}
 
+int main(int argc, char** argv) {
+	int seed = 0;
+	if (argc >= 2) {
+		string stringSeed = string(argv[1]);
+		seed = atoi(stringSeed.c_str());
+	}
+
+	vector <bool> humanPlayers;
+	isPlayersHuman(humanPlayers);
 	Game g = Game(humanPlayers, seed);
 	printStartGamePlay(g.findFirstPlayer() + 1);
 	Command currentCommand;
