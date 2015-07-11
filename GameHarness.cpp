@@ -51,7 +51,6 @@ int main(int argc, char** argv) {
 	printStartGamePlay(g.findFirstPlayer() + 1);
 	Command currentCommand;
 	bool proceedToNextPlayer = true;
-	bool printMessage = true;
 	do{
 		if (g.isGameOver()) {
 
@@ -68,9 +67,9 @@ int main(int argc, char** argv) {
 		if (g.isCurrentPlayerHuman()) {
 			g.printHumanGameplay();
 
-			if (printMessage) {
-				g.printHumanGameplay();
-			}
+			//if (printMessage) {
+				//g.printHumanGameplay();
+			//}
 
 			cout << ">";
 			cin >> currentCommand;

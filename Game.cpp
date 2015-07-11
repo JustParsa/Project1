@@ -103,7 +103,10 @@ void Game::initDeck() {
 }
 
 bool Game::isGameOver() const{
-	return playedCards.getCardsOnTableOfSuit(0).size() + playedCards.getCardsOnTableOfSuit(1).size() + playedCards.getCardsOnTableOfSuit(2).size() + playedCards.getCardsOnTableOfSuit(3).size();
+	if (playedCards.getCardsOnTableOfSuit(0).size() + playedCards.getCardsOnTableOfSuit(1).size() + playedCards.getCardsOnTableOfSuit(2).size() + playedCards.getCardsOnTableOfSuit(3).size() < 52){
+		return false;
+	}
+	return true;
 }
 
 /*
@@ -172,9 +175,11 @@ void Game::initPlayerCards() {
 int Game::findFirstPlayer() {
 	for (int currPlayer = 0; currPlayer < 4; currPlayer++) {
 		for (int cardIndex = 0; cardIndex < 13; cardIndex++) {
-			if (cards_[currPlayer]->getRank() == SEVEN && cards_[currPlayer]->getSuit() == SPADE)
+			int currCard = currPlayer * 13 + cardIndex;
+			if (cards_[currCard]->getRank() == SEVEN && cards_[currCard]->getSuit() == SPADE){
 				currentPlayer_ = currPlayer;
 				return currPlayer;
+			}
 		}
 	}
 }
@@ -241,7 +246,7 @@ void Game::printHumanGameplay() {
 	vector<Card*> legalPlays = players_[currentPlayer_]->getLegalPlays(playedCards);
 
 	for (vector<Card*>::const_iterator itr = legalPlays.begin(); itr < legalPlays.end(); itr++) {
-		cout << " " << *itr;
+		cout << " " << **itr;
 	}
 	cout << endl;
 
@@ -279,15 +284,12 @@ int Game::getPlayerTotalPoints(int player){
 }
 
 Card* Game::getPointerToCard(Card card){
-
 	for (int x = 0; x < 52; x++){
-
 		if (cards_[x]->getRank() == card.getRank() && cards_[x]->getSuit() == card.getSuit()){
 			return cards_[x];
 		}
 
 	}
-
 }
 
 /*

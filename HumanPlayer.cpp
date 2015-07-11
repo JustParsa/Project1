@@ -21,7 +21,8 @@ void HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* ca
 void HumanPlayer::playCard(PlayedCards& playedCards, Player& player, Card* card) {
 	
 	if (!player.hasCard(card)) {
-		
+		throw exception("You don'thave that card!!!!");
+		return;
 	}
 	playedCards.pushCard(card);
 	player.removeCard(card);

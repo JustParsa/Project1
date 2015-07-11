@@ -94,6 +94,7 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="ComputerPlayer.cpp" />
+    <ClCompile Include="DiscardException.cpp" />
     <ClCompile Include="Exception.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameHarness.cpp" />

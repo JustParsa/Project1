@@ -35,7 +35,9 @@ void Player::addPoints(Card* card) {
 
 bool Player::hasCard(Card* card) const {
 	for (int x = 0; x < hand_.size(); x++) {
-        return (hand_.at(x) == card) ? true : false;
+		if (hand_.at(x) == card){
+			return true;
+		}
 	}
 	return false;
 }
