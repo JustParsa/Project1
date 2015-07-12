@@ -19,8 +19,8 @@ public:
 	void shuffle();
 	bool numPointsGreaterThanEighty() const;
 	void nextPlayer();
-	void playCard(Card *card, std::string);
-	void discardCard(Card *card, std::string);
+	bool playCard(Card *card, std::string);
+	bool discardCard(Card *card, std::string);
 	//void humanRageQuit();
 	bool isGameOver() const;
 	bool isCurrentPlayerHuman() const;

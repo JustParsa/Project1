@@ -45,12 +45,15 @@ int main(int argc, char** argv) {
 		seed = atoi(stringSeed.c_str());
 	}
 
+	bool proceedToNextPlayer = true;
+	bool printMessage = true;
+	Card* pointerToCard;
+
 	vector <bool> humanPlayers;
 	isPlayersHuman(humanPlayers);
 	Game g = Game(humanPlayers, seed);
 	printStartGamePlay(g.findFirstPlayer() + 1);
 	Command currentCommand;
-	bool proceedToNextPlayer = true;
 	do{
 		if (g.isGameOver()) {
 
@@ -65,17 +68,14 @@ int main(int argc, char** argv) {
 		}
 
 		if (g.isCurrentPlayerHuman()) {
-			g.printHumanGameplay();
 
-			//if (printMessage) {
-				//g.printHumanGameplay();
-			//}
+			if (printMessage) {
+				g.printHumanGameplay();
+			}
 
 			cout << ">";
 			cin >> currentCommand;
-			bool proceedToNextPlayer;
-			bool printMessage;
-			Card* pointerToCard;
+
 			switch (currentCommand.type) {
 			case QUIT:
 				return 0;
@@ -85,11 +85,11 @@ int main(int argc, char** argv) {
 				break;
 			case PLAY:
 				pointerToCard = g.getPointerToCard(currentCommand.card);
-				g.playCard(pointerToCard, "play");
+				proceedToNextPlayer = g.playCard(pointerToCard, "play");
 				break;
 			case DISCARD:
 				pointerToCard = g.getPointerToCard(currentCommand.card);
-				g.discardCard(pointerToCard, "play");
+				proceedToNextPlayer = g.discardCard(pointerToCard, "discard");
 				break;
 				/*
 			case RAGEQUIT:
@@ -97,8 +97,15 @@ int main(int argc, char** argv) {
 			proceedToNextPlayer = true;
 			*/
 			}
+			if (proceedToNextPlayer == true){
+				g.nextPlayer();
+				printMessage = true;
+			}
+			else{
+				printMessage = true;
+			}
 			
-				printMessage = false;
+				
 		}
 	} while (currentCommand.type != QUIT);
 }

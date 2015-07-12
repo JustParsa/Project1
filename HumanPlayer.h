@@ -9,9 +9,9 @@ class HumanPlayer : public Player {
 public:
 	HumanPlayer(bool isPlayerHuman, int playerNumber);
 	virtual ~HumanPlayer();
-	virtual void HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction);
-	virtual void playCard(PlayedCards&, Player&, Card* card);
-	virtual void discardCard(PlayedCards&, Player&, Card* card);
+	virtual bool HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction);
+	virtual bool playCard(PlayedCards&, Player&, Card* card);
+	virtual bool discardCard(PlayedCards&, Player&, Card* card);
 protected:
 	
 };

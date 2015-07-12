@@ -10,15 +10,6 @@
 class Player {
 public:
 	
-	class IllegalMoveException {									//Exception if the Collection is invalid. 
-	public:
-		IllegalMoveException(std::string);
-		~IllegalMoveException() {};
-		std::string msg();
-	private:
-		std::string msg_;
-	};
-	
 	Player(bool, int);
 	virtual ~Player();
 	void addCard(Card*);
@@ -34,9 +25,8 @@ public:
 	void addPoints(Card* card);
 	void pushDiscardedDeck(Card* card);
 	bool hasCard(Card* card) const;
-	//Action performMove(Table& table, Action action);
 	void replaceHumanPlayWithComputerPlay();
-	virtual void performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction) = 0;
+	virtual bool performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction) = 0;
 private:
 
 	//bool isCardValid(Table& table, Card card) const;

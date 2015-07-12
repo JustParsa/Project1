@@ -9,28 +9,46 @@ HumanPlayer::HumanPlayer(bool isPlayerHuman, int playerNumber) : Player(isPlayer
 
 HumanPlayer::~HumanPlayer() {}
 
-void HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) {
+bool HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* card, string typeOfAction) {
 	if (typeOfAction == "play") {
-		HumanPlayer::playCard(playedCards, player, card);
+		return HumanPlayer::playCard(playedCards, player, card);
 	}
 	else if (typeOfAction == "discard") {
-		HumanPlayer::discardCard(playedCards, player, card);
+		return HumanPlayer::discardCard(playedCards, player, card);
 	}
 }
 
-void HumanPlayer::playCard(PlayedCards& playedCards, Player& player, Card* card) {
+bool HumanPlayer::playCard(PlayedCards& playedCards, Player& player, Card* card) {
 	
 	if (!player.hasCard(card)) {
-		throw exception("You don'thave that card!!!!");
-		return;
+		cerr << "You don't have that card!!!!" << endl;
+		return false;
 	}
-	playedCards.pushCard(card);
-	player.removeCard(card);
+	try{
+		playedCards.pushCard(card);
+		player.removeCard(card);
+	}
+	catch (exception e){
+		cout << e.what() << endl;
+		return false;
+	}
+	return true;
 }
 
-void HumanPlayer::discardCard(PlayedCards& playedCards, Player& player, Card* card) {
-	//vector<Card*> legalPlays = player.getLegalPlays(playedCards);
-	player.addPoints(card);
-	player.removeCard(card);
-	player.pushDiscardedDeck(card);
+bool HumanPlayer::discardCard(PlayedCards& playedCards, Player& player, Card* card) {
+	vector<Card*> legalPlays = player.getLegalPlays(playedCards);
+	if (legalPlays.size() != 0){
+		cerr << "You cannot discard a card, you can still play a card!!!\n";
+		return false;
+	}
+	try{
+		player.removeCard(card);
+		player.pushDiscardedDeck(card);
+		player.addPoints(card);
+	}
+	catch (exception e){
+		cout << e.what() << endl;
+		return false;
+	}
+	return true;
 }

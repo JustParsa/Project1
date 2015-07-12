@@ -262,15 +262,15 @@ int Game::getPlayerPoints(int player){
 
 }
 
-void Game::playCard(Card* card, string typeOfAction){
+bool Game::playCard(Card* card, string typeOfAction){
 
-	players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
+	return players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
 
 }
 
-void Game::discardCard(Card* card, string typeOfAction){
+bool Game::discardCard(Card* card, string typeOfAction){
 
-	players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
+	return players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
 
 }
 

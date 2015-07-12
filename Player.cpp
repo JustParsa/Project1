@@ -73,3 +73,9 @@ vector<Card*> Player::getLegalPlays(PlayedCards& playedCards) {
 }
 
 
+void replaceHumanPlayWithComputerPlay(){
+
+
+
+
+}
