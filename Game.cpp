@@ -182,6 +182,7 @@ int Game::findFirstPlayer() {
 			}
 		}
 	}
+    return 0;
 }
 
 /*
@@ -288,8 +289,8 @@ Card* Game::getPointerToCard(Card card){
 		if (cards_[x]->getRank() == card.getRank() && cards_[x]->getSuit() == card.getSuit()){
 			return cards_[x];
 		}
-
 	}
+    return NULL;
 }
 
 /*

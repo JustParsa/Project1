@@ -44,14 +44,14 @@ void PlayedCards::pushCard(Card* card) {
 		playedCards_[card->getSuit()].push_back(card);
 	}
 	else if (isEmpty()){
-		throw exception("You cannot play that card! You must start with the 7 of Spades!\n");
+		throw "You cannot play that card! You must start with the 7 of Spades!\n";
 		return;
 	}
 	else if (card->getRank() == SEVEN){
 		playedCards_[card->getSuit()].push_back(card);
 	}
 	else if (playedCards_[card->getSuit()].size() == 0){
-		throw exception("There are no cards for that specific suit. You cannot do that!\n");
+		throw "There are no cards for that specific suit. You cannot do that!\n";
 	}
 	else if (card->getRank() != ACE && playedCards_[card->getSuit()].front()->getRank() - 1 == card->getRank()) {
 		playedCards_[card->getSuit()].push_back(card);

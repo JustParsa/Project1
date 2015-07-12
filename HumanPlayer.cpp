@@ -16,6 +16,7 @@ bool HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* ca
 	else if (typeOfAction == "discard") {
 		return HumanPlayer::discardCard(playedCards, player, card);
 	}
+    return false;
 }
 
 bool HumanPlayer::playCard(PlayedCards& playedCards, Player& player, Card* card) {
