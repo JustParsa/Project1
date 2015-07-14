@@ -10,10 +10,11 @@ HumanPlayer::HumanPlayer(bool isPlayerHuman, int playerNumber) : Player(isPlayer
 HumanPlayer::~HumanPlayer() {}
 
 bool HumanPlayer::performMove(PlayedCards& playedCards, Card* card, string typeOfAction) {
-	if (typeOfAction == "play") {
+	printAction(card, typeOfAction);
+	if (typeOfAction == "plays") {
 		return HumanPlayer::playCard(playedCards, card);
 	}
-	else if (typeOfAction == "discard") {
+	else if (typeOfAction == "discards") {
 		return HumanPlayer::discardCard(playedCards, card);
 	}
 }

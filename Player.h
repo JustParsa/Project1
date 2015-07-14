@@ -29,7 +29,8 @@ public:
 	void pushDiscardedDeck(Card* card);
 	bool hasCard(Card* card) const;
 	void replaceHumanPlayWithComputerPlay();
-	virtual bool performMove(PlayedCards& playedCards, Card* card, std::string typeOfAction) = 0;
+	virtual bool performMove(PlayedCards&, Card*, std::string) = 0;
+	void printAction(Card*, std::string);
 private:
 
 	//bool isCardValid(Table& table, Card card) const;

@@ -2,7 +2,6 @@
 #ifndef COMPUTERPLAYER_H
 #define	COMPUTERPLAYER_H
 
-#include "HumanPlayer.h"
 #include "Player.h"
 #include <string>
 
@@ -11,7 +10,7 @@ public:
 	ComputerPlayer(bool,int);
 	ComputerPlayer(Player& player);
 	virtual ~ComputerPlayer();
-	virtual bool ComputerPlayer::performMove(PlayedCards& playedCards, Card* card, std::string typeOfAction);
+	virtual bool ComputerPlayer::performMove(PlayedCards&, Card*, std::string);
 	virtual bool playCard(PlayedCards&, Card* card);
 	virtual bool discardCard(PlayedCards&, Card* card);
 protected:
@@ -19,4 +18,4 @@ protected:
 };
 
 
-#endif	*//* COMPUTERPLAYER_H */
+#endif	/* COMPUTERPLAYER_H */

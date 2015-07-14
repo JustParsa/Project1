@@ -200,8 +200,8 @@ void Game::newRound(){
 		players_[i]->newRound();
 	}
 	playedCards.newRound();
-	initPlayerCards();
 	shuffle();
+	initPlayerCards();
 	currentPlayer_ = findFirstPlayer();
 }
 /*
@@ -229,7 +229,7 @@ void Game::printHumanGameplay() {
 		cout << getSuit((Suit)suit) << ":";
 		deque<Card*> cards = playedCards.getCardsOnTableOfSuit((Suit)suit);
 		for (int x = 0; x < cards.size(); x++) {
-			cout << " " << getRank(cards.at(x)->getRank());
+			cout << " " << cards.at(x)->getRank() + 1;
 		}
 		cout << endl;
 	}

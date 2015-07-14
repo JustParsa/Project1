@@ -17,9 +17,11 @@ bool ComputerPlayer::performMove(PlayedCards& playedCards, Card* card, string ty
 	vector<Card*> legalPlays = getLegalPlays(playedCards);
 	vector<Card*> currentHand = getHand();
 	if (legalPlays.size() != 0){
+		printAction(legalPlays.at(0), "plays");
 		return ComputerPlayer::playCard(playedCards, legalPlays.at(0));
 	}
 	else{
+		printAction(currentHand.at(0), "discards");
 		return ComputerPlayer::discardCard(playedCards, currentHand.at(0));
 	}
 }

@@ -25,6 +25,10 @@ void Player::sumTotalPoints() {
 	points_ = 0;
 }
 
+void Player::printAction(Card* c, string action) {
+	cout << "Player " << playerNumber_ + 1 << " " << action << " " << *c << "." << endl;
+}
+
 void Player::newRound() {
 	hand_.clear();
 	discardedCards_.clear();

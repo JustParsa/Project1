@@ -85,11 +85,11 @@ int main(int argc, char** argv) {
 				break;
 			case PLAY:
 				pointerToCard = g.getPointerToCard(currentCommand.card);
-				proceedToNextPlayer = g.playCard(pointerToCard, "play");
+				proceedToNextPlayer = g.playCard(pointerToCard, "plays");
 				break;
 			case DISCARD:
 				pointerToCard = g.getPointerToCard(currentCommand.card);
-				proceedToNextPlayer = g.discardCard(pointerToCard, "discard");
+				proceedToNextPlayer = g.discardCard(pointerToCard, "discards");
 				break;
 				
 			case RAGEQUIT:
@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 		}
 		else{
 
-			g.playCard(NULL, "play");
+			g.playCard(NULL, "");
 			g.nextPlayer();
 		}
 	} while (currentCommand.type != QUIT);
