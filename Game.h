@@ -21,7 +21,7 @@ public:
 	void nextPlayer();
 	bool playCard(Card *card, std::string);
 	bool discardCard(Card *card, std::string);
-	//void humanRageQuit();
+	void humanRageQuit();
 	bool isGameOver() const;
 	bool isCurrentPlayerHuman() const;
 	int addAllPlayerPoints() const;

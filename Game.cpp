@@ -23,8 +23,8 @@ Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed){
 	for (int x = 0; x < 4; x++) {
 		if (humanPlayers.at(x))
 			players_[x] = new HumanPlayer(humanPlayers.at(x), x);
-		//else
-			//players_[x] = new ComputerPlayer(humanPlayers.at(x), x);
+		else
+			players_[x] = new ComputerPlayer(humanPlayers.at(x), x);
 	}
 	
 	initDeck();
@@ -103,7 +103,8 @@ void Game::initDeck() {
 }
 
 bool Game::isGameOver() const{
-	if (playedCards.getCardsOnTableOfSuit(0).size() + playedCards.getCardsOnTableOfSuit(1).size() + playedCards.getCardsOnTableOfSuit(2).size() + playedCards.getCardsOnTableOfSuit(3).size() < 52){
+	int numCardsPlayed = playedCards.getCardsOnTableOfSuit(0).size() + playedCards.getCardsOnTableOfSuit(1).size() + playedCards.getCardsOnTableOfSuit(2).size() + playedCards.getCardsOnTableOfSuit(3).size() + players_[0]->getDiscardedCards().size() + players_[1]->getDiscardedCards().size() + players_[2]->getDiscardedCards().size() + players_[3]->getDiscardedCards().size();
+	if (numCardsPlayed<52){
 		return false;
 	}
 	return true;
@@ -119,7 +120,8 @@ int Game::addAllPlayerPoints() const{
 		players_[x]->sumTotalPoints();
 	}
 
-	int winner = players_[0]->getTotalPoints();
+	int winnerScore = players_[0]->getTotalPoints();
+	int winner = 0;
 	bool greaterThanEightyPoints = false;
 
 	for (int x = 0; x < 4; x++)
@@ -128,13 +130,12 @@ int Game::addAllPlayerPoints() const{
 
     if (greaterThanEightyPoints) {
         for (int x = 1; x < 4; x++) {
-            if (players_[x]->getTotalPoints() < winner) {
-				winner = players_[x]->getTotalPoints();
+			if (players_[x]->getTotalPoints() < winnerScore) {
+				winnerScore = players_[x]->getTotalPoints();
+				winner = x;
             }
         }
     }
-
-	greaterThanEightyPoints = (players_[0]->getTotalPoints() >= 80);
 
 	if (greaterThanEightyPoints)
 		return winner;
@@ -189,8 +190,8 @@ int Game::findFirstPlayer() {
  */
 void Game::nextPlayer() {
 	currentPlayer_++;
-	if (currentPlayer_ > 3)
-		currentPlayer_ = currentPlayer_ % 3;
+	if (currentPlayer_ >= 4)
+		currentPlayer_ = currentPlayer_ % 4;
 }
 
 void Game::newRound(){
@@ -264,13 +265,13 @@ int Game::getPlayerPoints(int player){
 
 bool Game::playCard(Card* card, string typeOfAction){
 
-	return players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
+	return players_[currentPlayer_]->performMove(playedCards, card, typeOfAction);
 
 }
 
 bool Game::discardCard(Card* card, string typeOfAction){
 
-	return players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
+	return players_[currentPlayer_]->performMove(playedCards, card, typeOfAction);
 
 }
 
@@ -299,13 +300,13 @@ prints the score for all players
 void Game::printScore() {
 	for (int x = 1; x <= 4; x++) {
 		cout << "Player " << x << "'s discards:";
-		vector<Card*> discardedCards = getDiscardedCards(x);
+		vector<Card*> discardedCards = getDiscardedCards(x-1);
 		for (int y = 0; y < discardedCards.size(); y++) {
-			cout << " " << discardedCards.at(y);
+			cout << " " << *discardedCards.at(y);
 		}
 		cout << endl;
 
-		cout << "Player " << x << "'s score: " << getPlayerTotalPoints(x - 1) << " + " << getPlayerPoints(x - 1) << " = " << getPlayerTotalPoints(x - 1) + getPlayerPoints(x) << endl;
+		cout << "Player " << x << "'s score: " << getPlayerTotalPoints(x - 1) << " + " << getPlayerPoints(x - 1) << " = " << getPlayerTotalPoints(x - 1) + getPlayerPoints(x-1) << endl;
 	}
 }
 
@@ -320,3 +321,13 @@ int Game::getCurrentPlayer() const{
 	return currentPlayer_;
 
 };
+void Game::humanRageQuit(){
+
+	Player* newPlayer = NULL;
+	if (isCurrentPlayerHuman()){
+		newPlayer = new ComputerPlayer(*players_[currentPlayer_]);
+	}
+	delete players_[currentPlayer_];
+	players_[currentPlayer_] = newPlayer;
+
+}

@@ -1,19 +1,19 @@
-/*
+
 #ifndef COMPUTERPLAYER_H
 #define	COMPUTERPLAYER_H
 
 #include "HumanPlayer.h"
 #include "Player.h"
-#include <deque>
 #include <string>
 
 class ComputerPlayer : public Player{
 public:
-	ComputerPlayer();
+	ComputerPlayer(bool,int);
+	ComputerPlayer(Player& player);
 	virtual ~ComputerPlayer();
-	void performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction);
-	void playCard(PlayedCards&, Player&, Card*);
-	void discardCard(PlayedCards&, Player&, Card*);
+	virtual bool ComputerPlayer::performMove(PlayedCards& playedCards, Card* card, std::string typeOfAction);
+	virtual bool playCard(PlayedCards&, Card* card);
+	virtual bool discardCard(PlayedCards&, Card* card);
 protected:
 
 };

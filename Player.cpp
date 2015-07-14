@@ -9,6 +9,7 @@ using namespace std;
  appropriate values
  */
 Player::Player(bool isPlayerHuman, int playerNumber) : isPlayerHuman_(isPlayerHuman),playerNumber_(playerNumber), points_(0), totalPoints_(0) {}
+Player::Player(Player &p) : isPlayerHuman_(false), playerNumber_(p.playerNumber_), points_(p.points_), totalPoints_(p.totalPoints_), hand_(p.hand_), discardedCards_(p.discardedCards_) {}
 Player::~Player() {};
 bool Player::isPlayerHuman() const {return isPlayerHuman_;}
 vector<Card*> Player::getHand() {
@@ -72,10 +73,8 @@ vector<Card*> Player::getLegalPlays(PlayedCards& playedCards) {
 	return legalPlays;
 }
 
+int Player::playerNumber(){
 
-void replaceHumanPlayWithComputerPlay(){
-
-
-
+	return playerNumber_;;
 
 }

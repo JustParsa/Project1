@@ -4,14 +4,14 @@
 #include "Player.h"
 #include "PlayedCards.h"
 
-
+class Player;
 class HumanPlayer : public Player {
 public:
 	HumanPlayer(bool isPlayerHuman, int playerNumber);
 	virtual ~HumanPlayer();
-	virtual bool HumanPlayer::performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction);
-	virtual bool playCard(PlayedCards&, Player&, Card* card);
-	virtual bool discardCard(PlayedCards&, Player&, Card* card);
+	virtual bool HumanPlayer::performMove(PlayedCards& playedCards, Card* card, std::string typeOfAction);
+	virtual bool playCard(PlayedCards&, Card* card);
+	virtual bool discardCard(PlayedCards&, Card* card);
 protected:
 	
 };

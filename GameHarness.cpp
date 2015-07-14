@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
 			g.printScore();
 			int winner = g.addAllPlayerPoints();
 			if (winner >= 0) {
-				cout << "Player " << winner << " wins!" << endl;
+				cout << "Player " << winner + 1 << " wins!" << endl;
 				return 0;
 			}
 			g.newRound();
@@ -91,11 +91,12 @@ int main(int argc, char** argv) {
 				pointerToCard = g.getPointerToCard(currentCommand.card);
 				proceedToNextPlayer = g.discardCard(pointerToCard, "discard");
 				break;
-				/*
+				
 			case RAGEQUIT:
-			cout << "Player " << g.getCurrentPlayer() + 1 << " ragequits. A computer will now take over." << endl;
-			proceedToNextPlayer = true;
-			*/
+				cout << "Player " << g.getCurrentPlayer() + 1 << " ragequits. A computer will now take over." << endl;
+				g.humanRageQuit();
+				proceedToNextPlayer = false;
+			
 			}
 			if (proceedToNextPlayer == true){
 				g.nextPlayer();
@@ -106,6 +107,11 @@ int main(int argc, char** argv) {
 			}
 			
 				
+		}
+		else{
+
+			g.playCard(NULL, "play");
+			g.nextPlayer();
 		}
 	} while (currentCommand.type != QUIT);
 }
