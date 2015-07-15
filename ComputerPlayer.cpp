@@ -2,8 +2,6 @@
 
 #include "ComputerPlayer.h"
 #include "Player.h"
-
-#include "HumanPlayer.h"
 #include <vector>
 
 using namespace std;

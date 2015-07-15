@@ -6,7 +6,6 @@
 #include <string>
 #include "Card.h"
 #include "PlayedCards.h"
-//#include "HumanPlayer.h"
 class HumanPlayer;
 class Player {
 public:

@@ -17,6 +17,7 @@ bool HumanPlayer::performMove(PlayedCards& playedCards, Card* card, string typeO
 	else if (typeOfAction == "discards") {
 		return HumanPlayer::discardCard(playedCards, card);
 	}
+	return false;
 }
 
 bool HumanPlayer::playCard(PlayedCards& playedCards, Card* card) {

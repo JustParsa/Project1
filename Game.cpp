@@ -183,6 +183,7 @@ int Game::findFirstPlayer() {
 			}
 		}
 	}
+	return -1;
 }
 
 /*
@@ -291,6 +292,7 @@ Card* Game::getPointerToCard(Card card){
 		}
 
 	}
+	return NULL;
 }
 
 /*

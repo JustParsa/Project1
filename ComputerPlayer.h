@@ -8,9 +8,9 @@
 class ComputerPlayer : public Player{
 public:
 	ComputerPlayer(bool,int);
-	ComputerPlayer(Player& player);
+	ComputerPlayer(Player&);
 	virtual ~ComputerPlayer();
-	virtual bool ComputerPlayer::performMove(PlayedCards&, Card*, std::string);
+	virtual bool performMove(PlayedCards&, Card*, std::string);
 	virtual bool playCard(PlayedCards&, Card* card);
 	virtual bool discardCard(PlayedCards&, Card* card);
 protected:
@@ -19,3 +19,4 @@ protected:
 
 
 #endif	/* COMPUTERPLAYER_H */
+
