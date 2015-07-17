@@ -17,6 +17,7 @@ bool PlayedCards::isEmpty() const{
 }
 
 bool PlayedCards::isValidPlay(Card* card) const {
+
 	if (card->getRank() == SEVEN && card->getSuit() == SPADE) {
 		return true;
 	}
@@ -30,10 +31,10 @@ bool PlayedCards::isValidPlay(Card* card) const {
 	if (playedCards_[card->getSuit()].size() == 0)
 		return false;
 
-	if (card->getRank() != ACE && playedCards_[card->getSuit()].front()->getRank() - 1 == card->getRank())
+	if (playedCards_[card->getSuit()].back()->getRank() + 1 == card->getRank())
 		return true;
 
-	if (card->getRank() != KING && playedCards_[card->getSuit()].front()->getRank() + 1 == card->getRank())
+	if (playedCards_[card->getSuit()].front()->getRank() - 1 == card->getRank())
 		return true;
 	return false;
 }
@@ -53,10 +54,10 @@ void PlayedCards::pushCard(Card* card) {
 	else if (playedCards_[card->getSuit()].size() == 0){
 		throw "There are no cards for that specific suit. You cannot do that!\n";
 	}
-	else if (card->getRank() != ACE && playedCards_[card->getSuit()].front()->getRank() - 1 == card->getRank()) {
+	else if (playedCards_[card->getSuit()].back()->getRank() + 1 == card->getRank()) {
 		playedCards_[card->getSuit()].push_back(card);
 	}
-	else if (card->getRank() != KING && playedCards_[card->getSuit()].front()->getRank() + 1 == card->getRank() == true) {
+	else if (playedCards_[card->getSuit()].front()->getRank() - 1 == card->getRank()) {
 		playedCards_[card->getSuit()].push_front(card);
 	}
 }

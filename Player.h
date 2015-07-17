@@ -6,11 +6,12 @@
 #include <string>
 #include "Card.h"
 #include "PlayedCards.h"
-
+class HumanPlayer;
 class Player {
 public:
 	
 	Player(bool, int);
+	Player(Player &p);
 	virtual ~Player();
 	void addCard(Card*);
 	void newRound();
@@ -23,10 +24,12 @@ public:
 	int getTotalPoints() const;
 	void removeCard(Card* card);
 	void addPoints(Card* card);
+	int playerNumber();
 	void pushDiscardedDeck(Card* card);
 	bool hasCard(Card* card) const;
 	void replaceHumanPlayWithComputerPlay();
-	virtual bool performMove(PlayedCards& playedCards, Player& player, Card* card, std::string typeOfAction) = 0;
+	virtual bool performMove(PlayedCards&, Card*, std::string) = 0;
+	void printAction(Card*, std::string);
 private:
 
 	//bool isCardValid(Table& table, Card card) const;

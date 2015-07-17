@@ -1,11 +1,14 @@
 #include <iostream>
 #include <cstdlib>
 #include <random>
+#include <algorithm>
 #include "Game.h"
 #include "Player.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 #include "Card.h"
+#include "Subject.h"
+#include "Notification.h"
 
 const int CARD_COUNT = 52;
 
@@ -18,20 +21,24 @@ using namespace std;
  to begin
  */
 
-Game::Game(vector<bool> humanPlayers, int seed) : seed_(seed){
-
+Game::Game():isGameRunning_(false){
+	/*
 	for (int x = 0; x < 4; x++) {
 		if (humanPlayers.at(x))
 			players_[x] = new HumanPlayer(humanPlayers.at(x), x);
-		//else
-			//players_[x] = new ComputerPlayer(humanPlayers.at(x), x);
+		else
+			players_[x] = new ComputerPlayer(humanPlayers.at(x), x);
 	}
-	
+	*/
 	initDeck();
-	shuffle();
-	initPlayerCards();
-	currentPlayer_ = findFirstPlayer();
-		
+	for (int x = 0; x < 4; x++){
+		playerType_[x] = true;
+        players_[x] = NULL;
+    }
+	//shuffle();
+	//initPlayerCards();
+	//currentPlayer_ = findFirstPlayer();
+
 }
 
 // return appropriate string of suit based on suit object
@@ -83,7 +90,7 @@ void Game::shuffle(){
 	}
 }
 
-vector <Card*> Game::getDiscardedCards(int player) const{ 
+vector <Card*> Game::getDiscardedCards(int player) const{
 	return players_[player]->getDiscardedCards();
 }
 
@@ -103,7 +110,8 @@ void Game::initDeck() {
 }
 
 bool Game::isGameOver() const{
-	if (playedCards.getCardsOnTableOfSuit(0).size() + playedCards.getCardsOnTableOfSuit(1).size() + playedCards.getCardsOnTableOfSuit(2).size() + playedCards.getCardsOnTableOfSuit(3).size() < 52){
+	int numCardsPlayed = playedCards.getCardsOnTableOfSuit(0).size() + playedCards.getCardsOnTableOfSuit(1).size() + playedCards.getCardsOnTableOfSuit(2).size() + playedCards.getCardsOnTableOfSuit(3).size() + players_[0]->getDiscardedCards().size() + players_[1]->getDiscardedCards().size() + players_[2]->getDiscardedCards().size() + players_[3]->getDiscardedCards().size();
+	if (numCardsPlayed<52){
 		return false;
 	}
 	return true;
@@ -119,7 +127,8 @@ int Game::addAllPlayerPoints() const{
 		players_[x]->sumTotalPoints();
 	}
 
-	int winner = players_[0]->getTotalPoints();
+	int winnerScore = players_[0]->getTotalPoints();
+	int winner = 0;
 	bool greaterThanEightyPoints = false;
 
 	for (int x = 0; x < 4; x++)
@@ -128,13 +137,12 @@ int Game::addAllPlayerPoints() const{
 
     if (greaterThanEightyPoints) {
         for (int x = 1; x < 4; x++) {
-            if (players_[x]->getTotalPoints() < winner) {
-				winner = players_[x]->getTotalPoints();
+			if (players_[x]->getTotalPoints() < winnerScore) {
+				winnerScore = players_[x]->getTotalPoints();
+				winner = x;
             }
         }
     }
-
-	greaterThanEightyPoints = (players_[0]->getTotalPoints() >= 80);
 
 	if (greaterThanEightyPoints)
 		return winner;
@@ -142,8 +150,8 @@ int Game::addAllPlayerPoints() const{
 }
 
 /*
- add points of current with 
- the total number of points and 
+ add points of current with
+ the total number of points and
  check if it exceeds 80
  */
 bool Game::numPointsGreaterThanEighty() const{
@@ -182,7 +190,7 @@ int Game::findFirstPlayer() {
 			}
 		}
 	}
-    return 0;
+	return -1;
 }
 
 /*
@@ -190,8 +198,8 @@ int Game::findFirstPlayer() {
  */
 void Game::nextPlayer() {
 	currentPlayer_++;
-	if (currentPlayer_ > 3)
-		currentPlayer_ = currentPlayer_ % 3;
+	if (currentPlayer_ >= 4)
+		currentPlayer_ = currentPlayer_ % 4;
 }
 
 void Game::newRound(){
@@ -200,9 +208,12 @@ void Game::newRound(){
 		players_[i]->newRound();
 	}
 	playedCards.newRound();
-	initPlayerCards();
 	shuffle();
+	initPlayerCards();
 	currentPlayer_ = findFirstPlayer();
+    isGameRunning_ = true;
+	notifyAll();
+	computerPlayerAction();
 }
 /*
  print cards delimited with spaces
@@ -229,7 +240,7 @@ void Game::printHumanGameplay() {
 		cout << getSuit((Suit)suit) << ":";
 		deque<Card*> cards = playedCards.getCardsOnTableOfSuit((Suit)suit);
 		for (int x = 0; x < cards.size(); x++) {
-			cout << " " << getRank(cards.at(x)->getRank());
+			cout << " " << cards.at(x)->getRank() + 1;
 		}
 		cout << endl;
 	}
@@ -263,21 +274,48 @@ int Game::getPlayerPoints(int player){
 
 }
 
-bool Game::playCard(Card* card, string typeOfAction){
+void Game::playCard(Card* card){
+	bool completedSuccessfully = false;
 
-	return players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
+	vector<Card*> legalMoves = players_[currentPlayer_]->getLegalPlays(playedCards);
+    bool isCardLegalPlay = false;
+    for (int x = 0; x < legalMoves.size(); x++){
+        if (card == legalMoves.at(x)){
+            isCardLegalPlay = true;
+        }
+    }
+	if ((legalMoves.size() != 0) && isCardLegalPlay){
+		completedSuccessfully =  players_[currentPlayer_]->performMove(playedCards, card, "plays");
+	}
+	else if(legalMoves.size() == 0){
+		completedSuccessfully = players_[currentPlayer_]->performMove(playedCards, card, "discards");
+	}
+	if (completedSuccessfully){
+		if (isGameOver()){
+            updateGameState();
+        }else{
+            nextPlayer();
+            notifyAll();
+            computerPlayerAction();
+        }
+	}
+}
+void Game::updateGameState(){
 
+    if (isGameOver()) {
+
+        int winner = addAllPlayerPoints();
+        if (winner >= 0) {
+            notifyAll();
+            notify(GAME_OVER_UPDATE);
+            endGame();
+            return;
+        }
+        notify(ROUND_COMPLETED_UPDATE);
+        newRound();
+    }
 }
 
-bool Game::discardCard(Card* card, string typeOfAction){
-
-	return players_[currentPlayer_]->performMove(playedCards, *players_[currentPlayer_], card, typeOfAction);
-
-}
-
-/*
- return the total points of a player
- */
 int Game::getPlayerTotalPoints(int player){
 
 	return players_[player]->getTotalPoints();
@@ -289,8 +327,9 @@ Card* Game::getPointerToCard(Card card){
 		if (cards_[x]->getRank() == card.getRank() && cards_[x]->getSuit() == card.getSuit()){
 			return cards_[x];
 		}
+
 	}
-    return NULL;
+	return NULL;
 }
 
 /*
@@ -300,13 +339,13 @@ prints the score for all players
 void Game::printScore() {
 	for (int x = 1; x <= 4; x++) {
 		cout << "Player " << x << "'s discards:";
-		vector<Card*> discardedCards = getDiscardedCards(x);
+		vector<Card*> discardedCards = getDiscardedCards(x-1);
 		for (int y = 0; y < discardedCards.size(); y++) {
-			cout << " " << discardedCards.at(y);
+			cout << " " << *discardedCards.at(y);
 		}
 		cout << endl;
 
-		cout << "Player " << x << "'s score: " << getPlayerTotalPoints(x - 1) << " + " << getPlayerPoints(x - 1) << " = " << getPlayerTotalPoints(x - 1) + getPlayerPoints(x) << endl;
+		cout << "Player " << x << "'s score: " << getPlayerTotalPoints(x - 1) << " + " << getPlayerPoints(x - 1) << " = " << getPlayerTotalPoints(x - 1) + getPlayerPoints(x-1) << endl;
 	}
 }
 
@@ -321,3 +360,102 @@ int Game::getCurrentPlayer() const{
 	return currentPlayer_;
 
 };
+void Game::humanRageQuit(){
+
+	Player* newPlayer = NULL;
+	if (isCurrentPlayerHuman()){
+		newPlayer = new ComputerPlayer(*players_[currentPlayer_]);
+	}
+	delete players_[currentPlayer_];
+	players_[currentPlayer_] = newPlayer;
+	playerType_[currentPlayer_] = false;
+	notifyAll();
+	computerPlayerAction();
+}
+void Game::changePlayerType(int i, bool humanOrComputer){
+
+	playerType_[i] = humanOrComputer;
+
+}
+
+void Game::changeSeed(int seed){
+	seed_ = seed;
+}
+
+void Game::endGame(){
+    for (int i = 0; i < 4; i++) {
+		if (players_[i] != NULL)
+           players_[i]->newRound();
+	}
+	playedCards.newRound();
+	//notifyAll();
+	for (int i = 0; i < 4; i++) {
+		if (players_[i] != NULL)
+            delete players_[i];
+	}
+    //notify(GAME_OVER_UPDATE);
+    isGameRunning_ = false;
+}
+
+
+void Game::newGame(){
+	for (int x = 0; x < 4; x++) {
+		if (playerType_[x])
+			players_[x] = new HumanPlayer(playerType_[x], x);
+		else
+			players_[x] = new ComputerPlayer(playerType_[x], x);
+	}
+
+	//initDeck();
+	shuffle();
+	initPlayerCards();
+	currentPlayer_ = findFirstPlayer();
+	isGameRunning_ = true;
+	notifyAll();
+	cout << players_[currentPlayer_]->isPlayerHuman() << endl;
+	if (players_[currentPlayer_]->isPlayerHuman() == false){
+        computerPlayerAction();
+	}
+}
+
+void Game::computerPlayerAction() {
+	while (players_[currentPlayer_]->isPlayerHuman() == false){
+		players_[currentPlayer_]->performMove(playedCards, NULL, "");
+       	nextPlayer();
+       	if (isGameOver())
+            updateGameState();
+       	notifyAll();
+	}
+}
+deque<Card*> Game::getPlayedCards() {
+    //merge all cards deques into a single deque
+    deque<Card*> cardsOnTable;
+
+    for (int suit = CLUB; suit < SUIT_COUNT; suit++) {
+    	deque<Card*> cardsOfSpecificSuit = playedCards.getCardsOnTableOfSuit(suit);
+    	cardsOnTable.insert(cardsOnTable.end(), cardsOfSpecificSuit.begin(), cardsOfSpecificSuit.end());
+
+    }
+    return cardsOnTable;
+}
+
+vector<Card*> Game::getCurrentPlayersHand() {
+    return players_[currentPlayer_]->getHand();
+}
+
+vector<Card*> Game::getCurrentPlayersLegalPlays() {
+    return players_[currentPlayer_]->getLegalPlays(playedCards);
+}
+bool Game::isGameRunning(){
+	return isGameRunning_;
+}
+void Game::notifyAll(){
+
+	notify(TABLE_UPDATE);
+    notify(PLAYER_INFO_UPDATE);
+    notify(CURRENT_HAND_UPDATE);
+}
+//Returns if a player can ragequit or not. Meant to be used with the buttons that say ragequit
+bool Game::canRageQuit(int index){
+	return isGameRunning_ && players_[index]->isPlayerHuman() && index == currentPlayer_;
+}
