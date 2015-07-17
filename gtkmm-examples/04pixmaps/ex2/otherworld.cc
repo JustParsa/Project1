@@ -1,6 +1,4 @@
 #include "otherworld.h"
-#include "UIMenu.h"
-//#include "UIPlayerOption.h"
 
 // Sets the horizontal box to have homogeneous spacing (all elements are of the same size), and to put 10 pixels
 // between each widget. Initializes the pixel buffer for the null place holder card, and the 10 of spades.
@@ -10,8 +8,8 @@
 // Since widgets cannot be shared, must use pixel buffers to share images.
 OtherWorld::OtherWorld() : vbox(false, 3) {
 
-	const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
-	const Glib::RefPtr<Gdk::Pixbuf> cardPixbuf     = deck.getCardImage( TEN, SPADE );
+	// const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
+	// const Glib::RefPtr<Gdk::Pixbuf> cardPixbuf     = deck.getCardImage( TEN, SPADE );
 
 	// Sets the border width of the window.
 	set_border_width(10);
@@ -34,18 +32,27 @@ OtherWorld::OtherWorld() : vbox(false, 3) {
 
 	// Add the horizontal box for laying out the images to the frame.
 
-	for (int i = 0; i < 4; i++) {
-		vbox.add(hbox[i]);
 
-		// Initialize 4 empty cards and place them in the box.
-		for (int j = 0; j < 13; j++ ) {
-			card[i] = new Gtk::Image(deck.getCardImage((Rank)j, (Suit)i));
-			hbox[i].set_spacing(10);
-			hbox[i].add(*card[i]);
-		} // for
-	}
+	vbox.add(tableCards);
+
+
+	// for (int i = 0; i < 4; i++) {
+	// 	vbox.add(hbox[i]);
+
+	// 	// Initialize 4 empty cards and place them in the box.
+	// 	for (int j = 0; j < 13; j++ ) {
+	// 		card[i] = new Gtk::Image(deck.getCardImage((Rank)j, (Suit)i));
+	// 		hbox[i].set_spacing(10);
+	// 		hbox[i].add(*card[i]);
+	// 	} // for
+	// }
+
+
 
 	vbox.add(playerMenu);
+	vbox.add(playerCards);
+
+
 
 	// Initialize the 5th card and place the image into the button.
 	// card[4] = new Gtk::Image( cardPixbuf );

@@ -9,12 +9,12 @@
 #include "UIPlayerOption.h"
 
 UIPlayerOption::UIPlayerOption() : pointsLbl("Points: 0"), discardsLbl("Discards: 0"), togglePlayerBtn("Human") {
-	this->set_border_width(4);
-	this->set_spacing(3);
+	set_border_width(5);
+	set_spacing(7);
 	add(togglePlayerBtn);
 	add(pointsLbl);
 	add(discardsLbl);
 }
 
-UIPlayerOption::~UIPlayerOption() {};
+UIPlayerOption::~UIPlayerOption() {}
 

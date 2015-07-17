@@ -12,6 +12,7 @@
 #ifndef __DECK_GUI_H
 #define __DECK_GUI_H
 #include <gdkmm/pixbuf.h>
+ // #include <gtkmm.h>
 #include <vector>
 using std::vector;
 
@@ -28,8 +29,10 @@ public:
 	virtual ~DeckGUI();
 	Glib::RefPtr<Gdk::Pixbuf> getCardImage(Rank r, Suit s);   // Returns the image for the specified card.
 	Glib::RefPtr<Gdk::Pixbuf> getNullCardImage();                 // Returns the image to use for the placeholder.
-
+	// const Gtk::Image* getImage(Rank, Suit);
+	// Gtk::Image *cardImages[52];
 private:
 	vector< Glib::RefPtr< Gdk::Pixbuf > > deck;                   // Contains the pixel buffer images.
+
 }; // DeckGUI
 #endif

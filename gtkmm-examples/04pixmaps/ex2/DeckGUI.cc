@@ -36,8 +36,22 @@ DeckGUI::DeckGUI()  {
 
 	// Place images into Deck after createingPixbuf fro each element in array
 	transform( &image_names[0], &image_names[G_N_ELEMENTS(image_names)],
-			   std::back_inserter(deck), &createPixbuf );
+			   std::back_inserter(deck), &createPixbuf);
+
+	// populate cardImages
+	// NOTE: REMEMBER TO GET RID OF MAGIC NUMBERS 4, 13
+	// for (int i = 0; i < 4; i++) {
+	// 	for (int j = 0; j < 13; j++ ) {
+	// 		cardImages[i] = new Gtk::Image(getCardImage((Rank)j, (Suit)i));
+	// 	}
+	// }
 } // DeckGUI::DeckGUI
+
+// const Gtk::Image* DeckGUI:: getImage(Rank r, Suit s) {
+// 	// return cardImages[returnSpecificCard(r,s)];
+// 	int index = ((int)r)%13 + 13*((int)s);
+// 	return cardImages[index];
+// }
 
 DeckGUI::~DeckGUI() {
 } // DeckGUI::~DeckGUI

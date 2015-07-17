@@ -18,5 +18,5 @@ UIPlayerOptions::UIPlayerOptions() {
 	}
 }
 
-UIPlayerOptions::~UIPlayerOptions() {};
+UIPlayerOptions::~UIPlayerOptions() {}
 
