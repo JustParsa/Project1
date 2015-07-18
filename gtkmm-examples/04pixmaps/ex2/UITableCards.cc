@@ -9,20 +9,31 @@
 #include "UITableCards.h"
 
 UITableCards::UITableCards() {
-	// NOTE: MUST BE CHANGED LATER FROM 4,13 TO SUIT/RANK SIZE
+
 	for (int i = 0; i < 52; ++i) {
-		cardImages[i] = new Gtk::Image(deck.getCardImage((Rank)(i%13), (Suit)(i/13)));
+		cardImages[i] = new Gtk::Image(deck.getNullCardImage());
 	}
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; ++i) {
 		for (int j = 0; j < 13; ++j) {
 			cardRow[i].add(*cardImages[j + 13*i]);
 		}
-			cardRow[i].set_spacing(10);
-			add(cardRow[i]);
-
+		cardRow[i].set_spacing(10);
+		add(cardRow[i]);
 	}
+
 	set_spacing(3);
+
+	reveal(ACE, SPADE);
+	// reveal((Rank)3, (Suit)3);
 }
 
-UITableCards::~UITableCards() {}
+void UITableCards::reveal(Rank r, Suit s) {
+	cardImages[(int)r + (int)s*13]->set(deck.getCardImage(r, s));
+}
+
+UITableCards::~UITableCards() {
+	for (int i = 0; i < 52; ++i) {
+		delete cardImages[i];
+	}
+}
 

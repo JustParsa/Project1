@@ -21,6 +21,7 @@ private:
 	DeckGUI						deck;
 	Gtk::HBox					cardRow[4];
 	Gtk::Image					*cardImages[52];
+	void reveal(Rank, Suit);
 };
 
 #endif /* defined(_UITABLECARDS_) */
