@@ -29,7 +29,7 @@ public:
 	void startNewGame(std::string);
 	void endGame();
 	void eventRageQuit();
-	void eventCardSelect(Card);
+	void eventCardSelect(Card*);
 	void eventSetPlayerType(int, bool);
 
 

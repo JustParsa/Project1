@@ -30,6 +30,7 @@ private:
 	Game& 						model_;
 	View&						view_;
 	void reveal (Rank, Suit);
+	void hideAllCards();
 };
 
 #endif /* defined(_UITABLECARDS_) */

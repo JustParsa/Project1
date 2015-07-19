@@ -25,35 +25,31 @@ UITableCards::UITableCards(View& view, Game& game) : model_(game), view_(view), 
 
 	set_spacing(3);
 
-	reveal(ACE, SPADE);
+	//reveal(ACE, SPADE);
 	// reveal((Rank)3, (Suit)3);
 }
 
 void UITableCards::reveal(Rank r, Suit s) {
 	cardImages[(int)r + (int)s*13]->set(deck.getCardImage(r, s));
 }
-// void UITableCards::hideAllCards() {
-// 	for (int s = 0; s < 4; ++s) {
-// 		for (int r = 0; r < 13; ++r) {
-// 			cardImages[(int)r + (int)s*13]->set(deck.getNullCardImage());
-// 		}
-// 	}
-// }
 
-void UITableCards::update(){
-
+void UITableCards::hideAllCards() {
+	for (int x = 0; x < 52; x++)
+        cardImages[x]->set(deck.getNullCardImage());
 }
 
-// void UITableCards::updateCardsOnTable(deque<Card*> cardsOnTable){
-// 	if (cardsOnTable.size() == 0){
-// 		hideAllCards()
-// 	}
-// 	else{
-// 		for (int x = 0; x < cardsOnTable.size(); x++){
-// 			reveal(cardsOnTable.at(x)->getRank(),cardsOnTable.at(x)->getSuit());
-// 		}
-// 	}
-// }
+void UITableCards::update() {
+    std::deque<Card*> playedCards = model_.getPlayedCards();
+    if (playedCards.size() == 0) {
+        hideAllCards();
+    }else{
+    //reveal cards on the list
+        for(int x = 0; x < playedCards.size(); x++){
+            Card* curCard = playedCards.at(x);
+            reveal(curCard->getRank(),curCard->getSuit());
+        }
+    }
+}
 
 UITableCards::~UITableCards() {
 	for (int i = 0; i < 52; ++i) {

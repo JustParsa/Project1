@@ -84,7 +84,7 @@ void View::eventRageQuit() {
     controller_.eventRageQuit();
 }
 
-void View::eventCardSelect(Card card) {
+void View::eventCardSelect(Card* card) {
     controller_.eventCardSelect(card);
 }
 

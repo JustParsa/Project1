@@ -23,8 +23,10 @@ private:
 	DeckGUI							deck;
 	View&							view_;
 	Game&							model_;
-	Gtk::Button						playerHand[13];
+	Gtk::Button						*playerHand[13];
 	Gtk::Image						*cardImages[52];
+	Gtk::Image						*nullImg[13];
+	void eventCardSelect(int);
 };
 
 #endif /* defined(__UIPlayerCards__) */

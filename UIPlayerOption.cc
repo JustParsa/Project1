@@ -4,7 +4,7 @@
 // //  Created by Parsa Alipour on 2015-07-15.
 // //  Copyright (c) 2015 Parsa Alipour. All rights reserved.
 // //
-
+#include <string>
 #include <gtkmm.h>
 #include "UIPlayerOption.h"
 
@@ -23,16 +23,11 @@ UIPlayerOption::UIPlayerOption(View& view, Game& model, int playerPos) : pointsL
 }
 
 void UIPlayerOption::update(){
-	if (model_.isGameRunning()) {
-		togglePlayerBtn.set_sensitive(false);
-		if (isPlayerHuman && model_.getCurrentPlayer() == playerPos_) {
-			rageQuitBtn.set_sensitive(true);
-		}
-		else {
-			rageQuitBtn.set_sensitive(false);
-		}
-		togglePlayerBtn.set_label(model_.isSelectedPlayerHuman(playerPos_) ? "Human": "Computer");
-	}
+	// Disable switching player type if game is running
+	togglePlayerBtn.set_sensitive(model_.isGameRunning() ? false : true);
+	// set ragequit button status
+	rageQuitBtn.set_sensitive(model_.canRageQuit(playerPos_));
+	togglePlayerBtn.set_label(model_.isSelectedPlayerHuman(playerPos_) ? "Human": "Computer");
 	pointsLbl.set_label("Points: " + std::to_string(model_.getPlayerPoints(playerPos_)));
 	discardsLbl.set_label("Discards: " + std::to_string(model_.getDiscardedCards(playerPos_).size()));
 }

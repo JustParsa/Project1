@@ -27,8 +27,8 @@ void Controller::eventSetPlayerType(int index, bool isPlayerHuman) {
     model_.changePlayerType(index, isPlayerHuman);
 }
 
-void Controller::eventCardSelect(Card card) {
+void Controller::eventCardSelect(Card* card) {
 
-    model_.playCard(model_.getPointerToCard(card));
+    model_.playCard(card);
 
 }

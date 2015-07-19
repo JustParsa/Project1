@@ -10,7 +10,7 @@ public:
     void eventEndGame();
     void eventRageQuit();
     void eventSetPlayerType(int, bool);
-    void eventCardSelect(Card);
+    void eventCardSelect(Card*);
 private:
     Game& model_;
 };
