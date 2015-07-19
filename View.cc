@@ -9,6 +9,9 @@
 View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model), controller_(controller) {
 
 	menu = new UIMenu(*this);
+	tableCards = new UITableCards(*this, model);
+	playerMenu = new UIPlayerOptions(*this, model);
+	playerCards = new UIPlayerCards(*this, model);
 
 	// const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 	// const Glib::RefPtr<Gdk::Pixbuf> cardPixbuf     = deck.getCardImage( TEN, SPADE );
@@ -35,7 +38,7 @@ View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model),
 	// Add the horizontal box for laying out the images to the frame.
 
 
-	// vbox.add(tableCards);
+	 vbox.add(*tableCards);
 
 
 	// for (int i = 0; i < 4; i++) {
@@ -51,8 +54,8 @@ View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model),
 
 
 
-	// vbox.add(playerMenu);
-	// vbox.add(playerCards);
+	vbox.add(*playerMenu);
+	vbox.add(*playerCards);
 
 
 
@@ -69,7 +72,7 @@ View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model),
 } // View::View
 
 void View::startNewGame(std::string seed) {
-        controller_.eventNewGame(seed);
+    controller_.eventNewGame(seed);
 }
 
 void View::endGame() {

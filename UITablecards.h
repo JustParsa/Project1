@@ -12,21 +12,22 @@
 #include <gtkmm.h>
 #include "UIPlayerOption.h"
 #include "DeckGUI.h"
-#include "Observer.h"
-#include "Controller.h"
 #include "Game.h"
+#include "View.h"
 
-class UITableCards : public Gtk::VBox, public Observer {
+class View;
+
+class UITableCards : public Gtk::VBox {
 public:
-    UITableCards();
+    UITableCards(View&, Game&);
     virtual ~UITableCards();
     void update();
 private:
 	DeckGUI						deck;
 	Gtk::HBox					cardRow[4];
 	Gtk::Image					*cardImages[52];
-	// Controller					controller_;
-	// Game 						model_;
+	Game& 						model_;
+	View&						view_;
 	void reveal (Rank, Suit);
 };
 

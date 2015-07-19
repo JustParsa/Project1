@@ -8,7 +8,7 @@
 #include <gtkmm.h>
 #include "UIPlayerCards.h"
 
-UIPlayerCards::UIPlayerCards() {
+UIPlayerCards::UIPlayerCards(View& view, Game& model): view_(view), model_(model) {
 	for (int i = 0; i < 52; i++) {
 		cardImages[i] = new Gtk::Image(deck.getCardImage((Rank)(i%13), (Suit)(i/13)));
 	}

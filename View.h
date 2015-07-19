@@ -17,6 +17,9 @@
 #include "Controller.h"
 
 class UIMenu;
+class UITableCards;
+class UIPlayerOptions;
+class UIPlayerCards;
 
 class View : public Gtk::Window, public Observer {
 public:

@@ -11,19 +11,21 @@
 #include <stdio.h>
 #include <gtkmm.h>
 #include "UIPlayerOption.h"
-#include "Observer.h"
-#include "Controller.h"
+#include "View.h"
 #include "Game.h"
+
+class UIPlayerOption;
 
 class UIPlayerOptions : public Gtk::HBox {
 public:
-    UIPlayerOptions();
+    UIPlayerOptions(View&, Game&);
     virtual ~UIPlayerOptions();
     void update();
 private:
 	Gtk::Frame						playerFrames[4];
-    UIPlayerOption 					playerOptions[4];
-	Game 							model_;
+    UIPlayerOption* 				playerOptions[4];
+    View&							view_;
+	Game& 							model_;
 };
 
 #endif /* defined(_UIPLAYEROPTIONS_) */

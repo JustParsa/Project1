@@ -9,12 +9,13 @@
 #include <string>
 #include "UIPlayerOptions.h"
 
-UIPlayerOptions::UIPlayerOptions() {
+UIPlayerOptions::UIPlayerOptions(View& view, Game& model) : view_(view), model_(model) {
 	this->set_spacing(3);
 	for (int i = 0; i < 4; ++i) {
 		playerFrames[i].set_label("Player " + std::to_string(i+1));
 		add(playerFrames[i]);
-		playerFrames[i].add(playerOptions[i]);
+		playerOptions[i] = new UIPlayerOption(view_, model_);
+		playerFrames[i].add(*playerOptions[i]);
 	}
 }
 

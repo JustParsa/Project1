@@ -13,15 +13,18 @@
 #include "DeckGUI.h"
 // #include "Observer.h"
 // #include "Controller.h"
-// #include "Game.h"
+#include "Game.h"
+#include "view.h"
 
 class UIPlayerCards : public Gtk::HBox {
 public:
-    UIPlayerCards();
+    UIPlayerCards(View&, Game&);
     virtual ~UIPlayerCards();
     void update();
 private:
 	DeckGUI							deck;
+	View&							view_;
+	Game&							model_;
 	Gtk::Button						playerHand[13];
 	Gtk::Image						*cardImages[52];
 };
