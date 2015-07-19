@@ -1,20 +1,14 @@
-CXX= g++
-#CXXFLAGS = -g `/opt/local/bin/pkg-config gtkmm-2.4 --cflags --libs`
-CXXFLAGS = -Wall -O -g `pkg-config gtkmm-2.4 --cflags --libs`
-OBJS = DeckGUI.o View.o Main.o UIMenu.o UIPlayerOption.o UIPlayerOptions.o UITableCards.o UIPlayerCards.o
-EXEC = other
+CXX = g++ 			
+CXXFLAGS = -g -Wall -MMD `pkg-config gtkmm-2.4 --cflags` -std=c++0x -w
+LDFLAGS=`pkg-config gtkmm-2.4 --libs`
+OBJECTS = DeckGUI.o Main.o Observer.o Subject.o UIMenu.o UIPlayerCards.o UIPlayerOption.o UIPlayerOptions.o UITableCards.o View.o
+DEPENDS = ${OBJECTS:.o=.d}
+EXEC = straights
 
-$(EXEC): $(OBJS)
-	$(CXX) $(OBJS) $(CXXFLAGS) -o $(EXEC)
+${EXEC} : ${OBJECTS}
+	${CXX} ${OBJECTS} ${CXXFLAGS} $(LDFLAGS) -o ${EXEC}
 
-DeckGUI.o: DeckGUI.h DeckGUI.cc
-View.o: View.h View.cc
-Main.o: View.h Main.cc
-UIMenu.o: UIMenu.h UIMenu.cc
-UIPlayerOption.o: UIPlayerOption.cc UIPlayerOption.h
-UIPlayerOptions.o: UIPlayerOptions.cc UIPlayerOptions.h
-UITableCards.o: UITableCards.cc UITableCards.h
-UIPlayerCards.o: UIPlayerCards.cc UIPlayerCards.h
+clean :
+	rm -rf ${DEPENDS} ${OBJECTS} ${EXEC}
 
-clean:
-	rm $(EXEC) $(OBJS)
+-include ${DEPENDS}	# reads the .d files and reruns dependencies
