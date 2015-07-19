@@ -6,7 +6,9 @@
 // with an image in it.
 //
 // Since widgets cannot be shared, must use pixel buffers to share images.
-View::View() : vbox(false, 3) {
+View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model), controller_(controller) {
+
+	menu = new UIMenu(*this);
 
 	// const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 	// const Glib::RefPtr<Gdk::Pixbuf> cardPixbuf     = deck.getCardImage( TEN, SPADE );
@@ -21,7 +23,7 @@ View::View() : vbox(false, 3) {
 
 	// Add the frame to the window. Windows can only hold one widget, same for frames.
 	add(vbox);
-	vbox.add(menu);
+	vbox.add(*menu);
 
 	//vbox.add(*menu);
 	// menu.add(startGame);
@@ -33,7 +35,7 @@ View::View() : vbox(false, 3) {
 	// Add the horizontal box for laying out the images to the frame.
 
 
-	vbox.add(tableCards);
+	// vbox.add(tableCards);
 
 
 	// for (int i = 0; i < 4; i++) {
@@ -49,8 +51,8 @@ View::View() : vbox(false, 3) {
 
 
 
-	vbox.add(playerMenu);
-	vbox.add(playerCards);
+	// vbox.add(playerMenu);
+	// vbox.add(playerCards);
 
 
 
@@ -62,7 +64,33 @@ View::View() : vbox(false, 3) {
 
 	// The final step is to display this newly created widget.
 	show_all();
+
+	model_.subscribe(this);
 } // View::View
+
+void View::startNewGame(std::string seed) {
+        controller_.eventNewGame(seed);
+}
+
+void View::endGame() {
+    controller_.eventEndGame();
+}
+
+void View::eventRageQuit() {
+    controller_.eventRageQuit();
+}
+
+void View::eventCardSelect(Card card) {
+    controller_.eventCardSelect(card);
+}
+
+void View::eventSetPlayerType(int index, bool isPlayerHuman) {
+    controller_.eventSetPlayerType(index, isPlayerHuman);
+}
+
+void View::update() {
+
+}
 
 View::~View() {
 	for (int i = 0; i < 52; i++ ) delete card[i];

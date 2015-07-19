@@ -10,18 +10,23 @@
 
 #include <stdio.h>
 #include <gtkmm.h>
-//#include "Controller.h"
+#include "View.h"
+#include "Observer.h"
+// #include "Controller.h"
+// #include "Game.h"
+
+class View;
 
 class UIMenu : public Gtk::HBox, public Observer {
 public:
-    UIMenu();
+    UIMenu(View&);
     virtual ~UIMenu();
-
+    void update();
 private:
     Gtk::Button                     startGameBtn;
     Gtk::Button 					endGameBtn;
     Gtk::Entry						seedEntry;
-    // Controller						controller_;
+    View& 							view_;
     void startNewGame();
     void endGame();
 

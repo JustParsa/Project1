@@ -12,9 +12,9 @@
 #include <gtkmm.h>
 #include "UIPlayerOption.h"
 #include "DeckGUI.h"
-// #include "Observer.h"
-// #include "Controller.h"
-// #include "Game.h"
+#include "Observer.h"
+#include "Controller.h"
+#include "Game.h"
 
 class UITableCards : public Gtk::VBox, public Observer {
 public:

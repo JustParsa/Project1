@@ -16,5 +16,9 @@ UIPlayerOption::UIPlayerOption() : pointsLbl("Points: 0"), discardsLbl("Discards
 	add(discardsLbl);
 }
 
+void UIPlayerOption::update(){
+
+}
+
 UIPlayerOption::~UIPlayerOption() {}
 

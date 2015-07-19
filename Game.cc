@@ -410,7 +410,6 @@ void Game::newGame(){
 	currentPlayer_ = findFirstPlayer();
 	isGameRunning_ = true;
 	notify();
-	cout << players_[currentPlayer_]->isPlayerHuman() << endl;
 	if (players_[currentPlayer_]->isPlayerHuman() == false){
         computerPlayerAction();
 	}

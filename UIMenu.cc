@@ -11,7 +11,7 @@
 
 class View;
 
-UIMenu::UIMenu() : startGameBtn("Start Game"), endGameBtn("End Game") {
+UIMenu::UIMenu(View& view) : startGameBtn("Start Game"), endGameBtn("End Game"), view_ (view){
     add(startGameBtn);
     add(seedEntry);
     add(endGameBtn);
@@ -23,11 +23,14 @@ UIMenu::UIMenu() : startGameBtn("Start Game"), endGameBtn("End Game") {
 };
 
 void UIMenu::startNewGame () {
-	//controller_.startNewGame(seedEntry.get_text());
+	view_.startNewGame(seedEntry.get_text());
 }
 
 void UIMenu::endGame () {
-	//controller_.EndGame();
+	view_.endGame();
+}
+
+void UIMenu::update() {
 }
 
 UIMenu::~UIMenu() {};
