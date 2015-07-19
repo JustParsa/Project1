@@ -33,7 +33,7 @@ View::View() : vbox(false, 3) {
 	// Add the horizontal box for laying out the images to the frame.
 
 
-	// vbox.add(tableCards);
+	vbox.add(tableCards);
 
 
 	// for (int i = 0; i < 4; i++) {
@@ -50,7 +50,7 @@ View::View() : vbox(false, 3) {
 
 
 	vbox.add(playerMenu);
-	//vbox.add(playerCards);
+	vbox.add(playerCards);
 
 
 

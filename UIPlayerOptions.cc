@@ -18,7 +18,7 @@ UIPlayerOptions::UIPlayerOptions() {
 	}
 }
 
-UIPlayerOptions::update() {
+void UIPlayerOptions::update() {
 
 }
 

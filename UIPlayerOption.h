@@ -10,9 +10,9 @@
 
 #include <stdio.h>
 #include <gtkmm.h>
-#include "Observer.h"
-#include "Controller.h"
-#include "Game.h"
+// #include "Observer.h"
+// #include "Controller.h"
+// #include "Game.h"
 
 class UIPlayerOption : public Gtk::VBox {
 public:

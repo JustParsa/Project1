@@ -10,9 +10,9 @@
 
 #include <stdio.h>
 #include <gtkmm.h>
-#include "Controller.h"
+//#include "Controller.h"
 
-class UIMenu : public Gtk::HBox {
+class UIMenu : public Gtk::HBox, public Observer {
 public:
     UIMenu();
     virtual ~UIMenu();
@@ -21,7 +21,9 @@ private:
     Gtk::Button                     startGameBtn;
     Gtk::Button 					endGameBtn;
     Gtk::Entry						seedEntry;
-    Controller						controller_;
+    // Controller						controller_;
+    void startNewGame();
+    void endGame();
 
 };
 

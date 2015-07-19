@@ -19,15 +19,15 @@ UIMenu::UIMenu() : startGameBtn("Start Game"), endGameBtn("End Game") {
     seedEntry.set_alignment(0.5);
 
     startGameBtn.signal_clicked().connect(sigc::mem_fun(*this, &UIMenu::startNewGame));
-    endGameBtn.signal_clicked().connect(sigc::mem_fun(*this, &UIMenu::EndGame));
+    endGameBtn.signal_clicked().connect(sigc::mem_fun(*this, &UIMenu::endGame));
 };
 
 void UIMenu::startNewGame () {
-	controller_.startNewGame(seedEntry.get_text());
+	//controller_.startNewGame(seedEntry.get_text());
 }
 
-void UIMenu::startNewGame () {
-	controller_.EndGame();
+void UIMenu::endGame () {
+	//controller_.EndGame();
 }
 
 UIMenu::~UIMenu() {};

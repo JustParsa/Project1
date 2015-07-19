@@ -12,9 +12,9 @@
 #include <gtkmm.h>
 #include "UIPlayerOption.h"
 #include "DeckGUI.h"
-#include "Observer.h"
-#include "Controller.h"
-#include "Game.h"
+// #include "Observer.h"
+// #include "Controller.h"
+// #include "Game.h"
 
 class UITableCards : public Gtk::VBox, public Observer {
 public:
@@ -25,8 +25,9 @@ private:
 	DeckGUI						deck;
 	Gtk::HBox					cardRow[4];
 	Gtk::Image					*cardImages[52];
-	Controller					controller_;
-	Game 						model_;
+	// Controller					controller_;
+	// Game 						model_;
+	void reveal (Rank, Suit);
 };
 
 #endif /* defined(_UITABLECARDS_) */

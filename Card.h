@@ -5,12 +5,10 @@
 #include <istream>
 
 enum Suit { CLUB, DIAMOND, HEART, SPADE, SUIT_COUNT };
-enum Rank {
-	ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
-	EIGHT, NINE, TEN, JACK, QUEEN, KING, RANK_COUNT
-};
+enum Rank { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
+			EIGHT, NINE, TEN, JACK, QUEEN, KING, RANK_COUNT };
 
-class Card{
+class Card {
 	friend std::istream &operator>>(std::istream &, Card &);
 
 public:

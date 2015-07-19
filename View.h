@@ -13,8 +13,9 @@
 #include "UITableCards.h"
 #include "UIPlayerOptions.h"
 #include "UIPlayerCards.h"
+#include "Observer.h"
 
-class View : public Gtk::Window {
+class View : public Gtk::Window, public Observer {
 public:
 	View();
 	virtual ~View();
@@ -24,9 +25,9 @@ private:
 
 	// Member widgets:
 	UIMenu							menu;
-	//UITableCards					tableCards;
+	UITableCards					tableCards;
 	UIPlayerOptions					playerMenu;
-	// UIPlayerCards					playerCards;
+	UIPlayerCards					playerCards;
 	Gtk::Image                    *card[52];          // Images to display.
 	Gtk::HBox                       hbox[4];          // Horizontal box for aligning widgets in the window.
 	//Gtk::Frame                      frame;            // Create a nice framed border for the box.
