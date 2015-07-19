@@ -20,8 +20,14 @@ UIPlayerOptions::UIPlayerOptions(View& view, Game& model) : view_(view), model_(
 }
 
 void UIPlayerOptions::update() {
-
+	for (int i = 0; i < 4; ++i) {
+		playerOptions[i]->update();
+	}
 }
 
-UIPlayerOptions::~UIPlayerOptions() {}
+UIPlayerOptions::~UIPlayerOptions() {
+	for (int i = 0; i < 4; ++i) {
+		delete playerOptions[i];
+	}
+}
 

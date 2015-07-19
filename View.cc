@@ -93,7 +93,9 @@ void View::eventSetPlayerType(int playerPos, bool isPlayerHuman) {
 }
 
 void View::update() {
-
+	tableCards->update();
+	playerMenu->update();
+	playerCards->update();
 }
 
 View::~View() {

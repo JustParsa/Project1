@@ -382,16 +382,21 @@ void Game::changeSeed(int seed){
 
 void Game::endGame(){
     for (int i = 0; i < 4; i++) {
-		if (players_[i] != NULL)
+		if (players_[i] != NULL){
            players_[i]->newRound();
+        }
 	}
 	playedCards.newRound();
 	//notify();
 	for (int i = 0; i < 4; i++) {
-		if (players_[i] != NULL)
+		if (players_[i] != NULL){
             delete players_[i];
+        }
 	}
-    //notify(GAME_OVER_UPDATE);
+    for (int i = 0; i < 4; i++) {
+		players_[i] = new HumanPlayer(true, i);
+	}
+    notify();
     isGameRunning_ = false;
 }
 

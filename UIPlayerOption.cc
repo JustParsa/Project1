@@ -23,8 +23,20 @@ UIPlayerOption::UIPlayerOption(View& view, Game& model, int playerPos) : pointsL
 }
 
 void UIPlayerOption::update(){
-
+	if (model_.isGameRunning()) {
+		togglePlayerBtn.set_sensitive(false);
+		if (isPlayerHuman && model_.getCurrentPlayer() == playerPos_) {
+			rageQuitBtn.set_sensitive(true);
+		}
+		else {
+			rageQuitBtn.set_sensitive(false);
+		}
+		togglePlayerBtn.set_label(model_.isSelectedPlayerHuman(playerPos_) ? "Human": "Computer");
+	}
+	pointsLbl.set_label("Points: " + std::to_string(model_.getPlayerPoints(playerPos_)));
+	discardsLbl.set_label("Discards: " + std::to_string(model_.getDiscardedCards(playerPos_).size()));
 }
+
 
 void UIPlayerOption::togglePlayerType() {
 	isPlayerHuman = !isPlayerHuman;
@@ -35,7 +47,6 @@ void UIPlayerOption::togglePlayerType() {
 		togglePlayerBtn.set_label("Computer");
 	}
 	view_.eventSetPlayerType(playerPos_, isPlayerHuman);
-	std::cout << model_.isSelectedPlayerHuman(0);
 }
 
 // void PlayerInfoDisplay::eventTogglePlayerType() {
