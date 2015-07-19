@@ -31,7 +31,9 @@ public:
 	void eventRageQuit();
 	void eventCardSelect(Card*);
 	void eventSetPlayerType(int, bool);
-
+	void updateDiolog();
+    void updateRoundComplete();
+    void updateGameOver();
 
 private:
 	//DeckGUI                         deck;             // Knows all of the card pixel buffers.

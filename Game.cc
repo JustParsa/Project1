@@ -20,7 +20,7 @@ using namespace std;
  to begin
  */
 
-Game::Game():isGameRunning_(false){
+Game::Game():isGameRunning_(false), currentPlayer_(0){
 	/*
 	for (int x = 0; x < 4; x++) {
 		if (humanPlayers.at(x))
@@ -32,7 +32,7 @@ Game::Game():isGameRunning_(false){
 	initDeck();
 	for (int x = 0; x < 4; x++){
 		playerType_[x] = true;
-        players_[x] = NULL;
+        players_[x] = new HumanPlayer(true, x);
     }
 	//shuffle();
 	//initPlayerCards();
@@ -402,6 +402,10 @@ void Game::endGame(){
 
 
 void Game::newGame(){
+    for (int x = 0; x < 4; x++) {
+        delete players_[x];
+	}
+
 	for (int x = 0; x < 4; x++) {
 		if (playerType_[x])
 			players_[x] = new HumanPlayer(playerType_[x], x);
@@ -409,19 +413,21 @@ void Game::newGame(){
 			players_[x] = new ComputerPlayer(playerType_[x], x);
 	}
 
+	playedCards.newRound();
 	//initDeck();
 	shuffle();
 	initPlayerCards();
 	currentPlayer_ = findFirstPlayer();
 	isGameRunning_ = true;
 	notify();
+	cout << players_[currentPlayer_]->isPlayerHuman() << endl;
 	if (players_[currentPlayer_]->isPlayerHuman() == false){
         computerPlayerAction();
 	}
 }
 
 void Game::computerPlayerAction() {
-	while (players_[currentPlayer_]->isPlayerHuman() == false){
+	while (players_[currentPlayer_]->isPlayerHuman() == false && !isGameOver()){
 		players_[currentPlayer_]->performMove(playedCards, NULL, "");
        	nextPlayer();
        	if (isGameOver())
@@ -442,6 +448,7 @@ deque<Card*> Game::getPlayedCards() {
 }
 
 vector<Card*> Game::getCurrentPlayersHand() {
+    cout << currentPlayer_ << endl;
     return players_[currentPlayer_]->getHand();
 }
 
@@ -450,6 +457,10 @@ vector<Card*> Game::getCurrentPlayersLegalPlays() {
 }
 bool Game::isGameRunning(){
 	return isGameRunning_;
+}
+
+bool Game::isSelectedPlayerHuman(int index) {
+	return playerType_[index];
 }
 // void Game::notify(){
 
@@ -460,9 +471,4 @@ bool Game::isGameRunning(){
 //Returns if a player can ragequit or not. Meant to be used with the buttons that say ragequit
 bool Game::canRageQuit(int index){
 	return isGameRunning_ && players_[index]->isPlayerHuman() && index == currentPlayer_;
-}
-
-bool Game::isSelectedPlayerHuman(int i){
-	return playerType_[i];
-
 }

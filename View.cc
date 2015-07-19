@@ -1,4 +1,5 @@
 #include "View.h"
+#include <string>
 
 // Sets the horizontal box to have homogeneous spacing (all elements are of the same size), and to put 10 pixels
 // between each widget. Initializes the pixel buffer for the null place holder card, and the 10 of spades.
@@ -96,8 +97,57 @@ void View::update() {
 	tableCards->update();
 	playerMenu->update();
 	playerCards->update();
+	updateDiolog();
+}
+
+void View::updateDiolog(){
+    if (model_.isGameOver()){
+        if (model_.addAllPlayerPoints() >= 0){
+            updateGameOver();
+        }else{
+            updateRoundComplete();
+        }
+    }
+}
+
+void View::updateRoundComplete() {
+    std::string output;
+
+    for (int i = 0; i < 4; ++i) {
+            output += "Player " + std::to_string(i + 1) + "'s score: "
+                     + std::to_string(model_.getPlayerTotalPoints(i)) + " + " + std::to_string(model_.getPlayerPoints(i))
+                    + " = " + std::to_string(model_.getPlayerTotalPoints(i) + model_.getPlayerPoints(i)) + "\n";
+    }
+
+    Gtk::MessageDialog popUp(*this, output);
+    popUp.run();
+}
+
+
+void View::updateGameOver() {
+
+    if (model_.isGameOver()){
+        std::string output;
+        int winner = model_.addAllPlayerPoints();
+        if (winner < 0)
+            return;
+    for (int i = 0; i < 4; ++i) {
+            output += "Player " + std::to_string(i + 1) + "'s score: "
+                     + std::to_string(model_.getPlayerTotalPoints(i)) + " + " + std::to_string(model_.getPlayerPoints(i))
+                    + " = " + std::to_string(model_.getPlayerTotalPoints(i) + model_.getPlayerPoints(i)) + "\n";
+    }
+        output += "Player " + std::to_string(winner + 1) + " wins!" + "\n";
+        Gtk::MessageDialog popUp(*this, output);
+        popUp.run();
+    }
 }
 
 View::~View() {
-	for (int i = 0; i < 52; i++ ) delete card[i];
+	for (int i = 0; i < 52; i++ ) {
+		delete card[i];
+	}
+	delete menu;
+	delete tableCards;
+	delete playerMenu;
+	delete playerCards;
 } // View::~View()

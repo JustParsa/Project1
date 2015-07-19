@@ -17,7 +17,7 @@ UIPlayerCards::UIPlayerCards(View& view, Game& model): view_(view), model_(model
 	}
 	for (int i = 0; i < 13; ++i) {
 		playerHand[i] = new Gtk::Button();
-		playerHand[i]->set_image(*cardImages[i]);
+		playerHand[i]->set_image(*nullImg[i]);
 		add(*playerHand[i]);
 	}
 
