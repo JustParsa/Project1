@@ -9,7 +9,8 @@
 #include "UITableCards.h"
 #include <deque>
 
-UITableCards::UITableCards(View& view, Game& game) : model_(game), view_(view) {
+UITableCards::UITableCards(View& view, Game& game) : model_(game), view_(view), tableLbl("Cards on the Table:") {
+	add(tableLbl);
 
 	for (int i = 0; i < 52; ++i) {
 		cardImages[i] = new Gtk::Image(deck.getNullCardImage());

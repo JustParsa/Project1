@@ -26,6 +26,7 @@ private:
 	DeckGUI						deck;
 	Gtk::HBox					cardRow[4];
 	Gtk::Image					*cardImages[52];
+	Gtk::Label					tableLbl;
 	Game& 						model_;
 	View&						view_;
 	void reveal (Rank, Suit);

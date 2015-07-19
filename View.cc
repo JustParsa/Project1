@@ -6,7 +6,7 @@
 // with an image in it.
 //
 // Since widgets cannot be shared, must use pixel buffers to share images.
-View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model), controller_(controller) {
+View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model), controller_(controller), playerHandLbl("Current player's hand:") {
 
 	menu = new UIMenu(*this);
 	tableCards = new UITableCards(*this, model);
@@ -55,6 +55,7 @@ View::View(Game& model, Controller& controller) : vbox(false, 3), model_(model),
 
 
 	vbox.add(*playerMenu);
+	vbox.add(playerHandLbl);
 	vbox.add(*playerCards);
 
 
@@ -87,8 +88,8 @@ void View::eventCardSelect(Card card) {
     controller_.eventCardSelect(card);
 }
 
-void View::eventSetPlayerType(int index, bool isPlayerHuman) {
-    controller_.eventSetPlayerType(index, isPlayerHuman);
+void View::eventSetPlayerType(int playerPos, bool isPlayerHuman) {
+    controller_.eventSetPlayerType(playerPos, isPlayerHuman);
 }
 
 void View::update() {

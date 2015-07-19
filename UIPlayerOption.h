@@ -17,16 +17,20 @@ class View;
 
 class UIPlayerOption : public Gtk::VBox {
 public:
-    UIPlayerOption(View&, Game&);
+    UIPlayerOption(View&, Game&, int);
     virtual ~UIPlayerOption();
     void update();
 private:
     Gtk::VBox                   	playerInfo;
     Gtk::Button						togglePlayerBtn;
+    Gtk::Button						rageQuitBtn;
     Gtk::Label						pointsLbl;
     Gtk::Label						discardsLbl;
     View&							view_;
     Game&							model_;
+    bool                            isPlayerHuman;
+    int                             playerPos_;     //index of the player
+    void togglePlayerType();
 };
 
 #endif /* defined(_UIPLAYEROPTION_) */

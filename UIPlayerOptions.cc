@@ -14,7 +14,7 @@ UIPlayerOptions::UIPlayerOptions(View& view, Game& model) : view_(view), model_(
 	for (int i = 0; i < 4; ++i) {
 		playerFrames[i].set_label("Player " + std::to_string(i+1));
 		add(playerFrames[i]);
-		playerOptions[i] = new UIPlayerOption(view_, model_);
+		playerOptions[i] = new UIPlayerOption(view_, model_, i);
 		playerFrames[i].add(*playerOptions[i]);
 	}
 }

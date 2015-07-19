@@ -456,3 +456,8 @@ bool Game::isGameRunning(){
 bool Game::canRageQuit(int index){
 	return isGameRunning_ && players_[index]->isPlayerHuman() && index == currentPlayer_;
 }
+
+bool Game::isSelectedPlayerHuman(int i){
+	return playerType_[i];
+
+}

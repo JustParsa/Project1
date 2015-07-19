@@ -11,8 +11,6 @@
 #include <stdio.h>
 #include <gtkmm.h>
 #include "DeckGUI.h"
-// #include "Observer.h"
-// #include "Controller.h"
 #include "Game.h"
 #include "view.h"
 

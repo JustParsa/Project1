@@ -47,6 +47,7 @@ public:
 	bool isGameRunning();
 	bool canRageQuit(int);
 	void updateGameState();
+	bool isSelectedPlayerHuman(int);
 private:
 	Card* cards_[52]; //all cards of the deck
 	Player* players_[4]; //all the players of the game

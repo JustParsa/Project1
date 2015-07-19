@@ -26,11 +26,11 @@ public:
 	View(Game&, Controller&);
 	virtual ~View();
 	void update();
-	void startNewGame(std::string seed);
+	void startNewGame(std::string);
 	void endGame();
 	void eventRageQuit();
-	void eventCardSelect(Card card);
-	void eventSetPlayerType(int index, bool isPlayerHuman);
+	void eventCardSelect(Card);
+	void eventSetPlayerType(int, bool);
 
 
 private:
@@ -41,6 +41,7 @@ private:
 	UITableCards*					tableCards;
 	UIPlayerOptions*				playerMenu;
 	UIPlayerCards*					playerCards;
+	Gtk::Label						playerHandLbl;
 	Gtk::Image                    	*card[52];          // Images to display.
 	Gtk::HBox                       hbox[4];          // Horizontal box for aligning widgets in the window.
 	//Gtk::Frame                      frame;            // Create a nice framed border for the box.
