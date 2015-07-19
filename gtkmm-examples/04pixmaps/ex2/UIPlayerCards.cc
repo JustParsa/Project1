@@ -9,7 +9,6 @@
 #include "UIPlayerCards.h"
 
 UIPlayerCards::UIPlayerCards() {
-	set_spacing(1);
 	for (int i = 0; i < 52; i++) {
 		cardImages[i] = new Gtk::Image(deck.getCardImage((Rank)(i%13), (Suit)(i/13)));
 	}
@@ -22,5 +21,13 @@ UIPlayerCards::UIPlayerCards() {
 	set_spacing(3);
 }
 
-UIPlayerCards::~UIPlayerCards() {}
+void UIPlayerCards::update() {
+
+}
+
+UIPlayerCards::~UIPlayerCards() {
+	// for (int i = 0; i < 52; ++i) {
+	// 	delete cardImages[i];
+	// }
+}
 

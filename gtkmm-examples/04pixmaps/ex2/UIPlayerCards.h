@@ -11,11 +11,15 @@
 #include <stdio.h>
 #include <gtkmm.h>
 #include "DeckGUI.h"
+// #include "Observer.h"
+// #include "Controller.h"
+// #include "Game.h"
 
 class UIPlayerCards : public Gtk::HBox {
 public:
     UIPlayerCards();
     virtual ~UIPlayerCards();
+    void update();
 private:
 	DeckGUI							deck;
 	Gtk::Button						playerHand[13];

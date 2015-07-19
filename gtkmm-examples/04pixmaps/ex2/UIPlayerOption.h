@@ -10,11 +10,15 @@
 
 #include <stdio.h>
 #include <gtkmm.h>
+// #include "Observer.h"
+// #include "Controller.h"
+// #include "Game.h"
 
 class UIPlayerOption : public Gtk::VBox {
 public:
     UIPlayerOption();
     virtual ~UIPlayerOption();
+    void update();
 private:
     Gtk::VBox                   	playerInfo;
     Gtk::Button						togglePlayerBtn;
