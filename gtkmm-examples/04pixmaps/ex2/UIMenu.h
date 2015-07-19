@@ -12,7 +12,7 @@
 #include <gtkmm.h>
 //#include "Controller.h"
 
-class UIMenu : public Gtk::HBox {
+class UIMenu : public Gtk::HBox, public Observer {
 public:
     UIMenu();
     virtual ~UIMenu();

@@ -13,8 +13,9 @@
 #include "UITableCards.h"
 #include "UIPlayerOptions.h"
 #include "UIPlayerCards.h"
+#include "Observer.h"
 
-class View : public Gtk::Window {
+class View : public Gtk::Window, public Observer {
 public:
 	View();
 	virtual ~View();
