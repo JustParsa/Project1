@@ -9,7 +9,7 @@
 #include <gtkmm.h>
 #include "UIMenu.h"
 
-class Otherworld;
+class View;
 
 UIMenu::UIMenu() : startGameBtn("Start Game"), endGameBtn("End Game") {
     add(startGameBtn);
