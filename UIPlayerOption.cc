@@ -15,9 +15,17 @@ UIPlayerOption::UIPlayerOption(View& view, Game& model, int playerPos) : pointsL
 	add(rageQuitBtn);
 	add(pointsLbl);
 	add(discardsLbl);
-
 	rageQuitBtn.set_sensitive(false);
 
+	// (*this).property_shadow_type.set_value(Gtk::ShadowType::SHADOW_ETCHED_IN);
+
+	// GdkColor blue = {0, 0x0000, 0x0000, 0xffff};
+ //    gtk_widget_modify_bg(this, GTK_STATE_NORMAL, &blue);
+
+	// Gdk::Color frameColor("yellow");
+ //    modify_bg(Gtk::STATE_NORMAL, frameColor);
+
+	// appropriate even handlers based on buttons pressed
 	rageQuitBtn.signal_clicked().connect(sigc::mem_fun(view, &View::eventRageQuit));
     togglePlayerBtn.signal_clicked().connect(sigc::mem_fun(*this, &UIPlayerOption::togglePlayerType));
 }
@@ -30,9 +38,10 @@ void UIPlayerOption::update(){
 	togglePlayerBtn.set_label(model_.isSelectedPlayerHuman(playerPos_) ? "Human": "Computer");
 	pointsLbl.set_label("Points: " + std::to_string(model_.getPlayerPoints(playerPos_)));
 	discardsLbl.set_label("Discards: " + std::to_string(model_.getDiscardedCards(playerPos_).size()));
+
 }
 
-
+// switch between player and human
 void UIPlayerOption::togglePlayerType() {
 	isPlayerHuman = !isPlayerHuman;
 	if (isPlayerHuman) {
@@ -43,12 +52,6 @@ void UIPlayerOption::togglePlayerType() {
 	}
 	view_.eventSetPlayerType(playerPos_, isPlayerHuman);
 }
-
-// void PlayerInfoDisplay::eventTogglePlayerType() {
-//     isPlayerHuman_ = !isPlayerHuman_;
-//     btnPlayerType.set_label(isPlayerHuman_ ? "Human" : "Computer");
-//     view_.eventSetPlayerType(playerIndex_, isPlayerHuman_);
-// }
 
 UIPlayerOption::~UIPlayerOption() {}
 

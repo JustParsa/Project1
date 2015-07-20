@@ -24,9 +24,6 @@ UITableCards::UITableCards(View& view, Game& game) : model_(game), view_(view), 
 	}
 
 	set_spacing(3);
-
-	//reveal(ACE, SPADE);
-	// reveal((Rank)3, (Suit)3);
 }
 
 void UITableCards::reveal(Rank r, Suit s) {

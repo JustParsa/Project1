@@ -27,6 +27,8 @@ private:
 	Gtk::Image						*cardImages[52];
 	Gtk::Image						*nullImg[13];
 	void eventCardSelect(int);
+	void enableIllegals();
+	void disableIllegals();
 };
 
 #endif /* defined(__UIPlayerCards__) */
