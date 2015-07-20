@@ -12,7 +12,7 @@
 #include <gtkmm.h>
 #include "DeckGUI.h"
 #include "Game.h"
-#include "view.h"
+#include "View.h"
 
 class UIPlayerCards : public Gtk::HBox {
 public:
